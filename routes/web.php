@@ -11,10 +11,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/pemasukans/store', [JournalController::class, 'storePemasukan']);
 Route::post('/pengeluarans/store', [JournalController::class, 'storePengeluaran']);
 
-// Tampilkan halaman jurnal
-Route::get('/journal', [HomeController::class, 'journal'])->name('journal');
-// routes/web.php
-Route::get('/journal', [JournalController::class, 'index']);
+
+Route::get('/journal', [JournalController::class, 'index'])->name('journal');
 
 
 // Hapus data

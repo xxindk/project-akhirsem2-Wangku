@@ -10,7 +10,6 @@
     <header class="flex justify-between p-4 bg-white shadow">
         <div class="flex items-center space-x-2">
            
-            <span class="text-xl font-bold">Wangku</span>
         </div>
         <div>
            

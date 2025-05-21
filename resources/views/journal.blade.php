@@ -30,7 +30,7 @@
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d-m-Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pemasukan->foto)
-                                    <img src="{{ asset('storage/' . $pemasukan->foto) }}" alt="Foto Pemasukan" width="80">
+<img src="{{ asset('storage/pemasukan_fotos/' . $pemasukan->foto) }}" width="80">
                                 @else
                                     Tidak ada foto
                                 @endif
@@ -57,7 +57,10 @@
                 </tbody>
             </table>
         </div>
-
+<div class="row">
+            <div class="w-full h-96">
+                {!! $chartPemasukan->container() !!}
+            </div>
 
 
 
@@ -89,7 +92,7 @@
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d-m-Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pengeluaran->foto)
-                                    <img src="{{ asset('storage/' . $pengeluaran->foto) }}" alt="Foto Pengeluaran" width="80">
+<img src="{{ asset('storage/pengeluaran_fotos/' . $pengeluaran->foto) }}" width="80">
                                 @else
                                     Tidak ada foto
                                 @endif
@@ -120,7 +123,9 @@
         </div>
     </div>
 
-
+<div class="w-full h-96">
+                {!! $chartPengeluaran->container() !!}
+            </div>
 
    <!-- Modal Edit -->
 <div id="editModalPengeluaran" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
@@ -220,24 +225,6 @@ function closeModalPengeluaran() {
 }
 
 </script>
-
-@extends('layouts.app')
-
-@section('content')
-    <div class="container">
-        <h2>Dashboard Keuangan</h2>
-
-        <div class="row">
-            <div class="col-md-6">
-                {!! $chartPemasukan->container() !!}
-            </div>
-            <div class="col-md-6">
-                {!! $chartPengeluaran->container() !!}
-            </div>
-        </div>
-    </div>
-@endsection
-
 @push('scripts')
     {!! $chartPemasukan->script() !!}
     {!! $chartPengeluaran->script() !!}

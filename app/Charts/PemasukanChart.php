@@ -24,7 +24,7 @@ class PemasukanChart
             return $kategori->pemasukan->sum('jumlah');
         });
 
-        return $this->chart->pieChart()
+        return $this->chart->donutChart()
             ->setTitle('Pemasukan per Kategori')
             ->addData($values->toArray())
             ->setLabels($labels);

@@ -21,15 +21,6 @@ public function index() {
 
     
 
-   public function journal() {
-    $pemasukans = Pemasukan::with('kategori')->get();
-    $pengeluarans = Pengeluaran::with('kategori')->get();
-    $kategoris = Kategori::all(); 
-    return view('journal', [
-            'pemasukans' => Pemasukan::all(),
-            'pengeluarans' => Pengeluaran::all(),
-            'kategoris' => $kategoris,
-        ]);
 
-}
+
 }
