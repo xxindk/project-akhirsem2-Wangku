@@ -33,9 +33,9 @@ class PengeluaranController extends Controller
     'kategori_id' => 'required',
     'nominal' => 'required|integer',
     'tanggal' => 'required|date',
-    'foto' => 'nullable|image|max:2048',
+    'foto' => 'nullable|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
 ]);
-
+$fotoPath = null;
 if ($request->hasFile('foto')) {
     $data['foto'] = $request->file('foto')->store('pengeluaran_foto', 'public');
 }

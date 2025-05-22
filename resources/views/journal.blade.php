@@ -30,7 +30,7 @@
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d-m-Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pemasukan->foto)
-<img src="{{ asset('storage/pemasukan_fotos/' . $pemasukan->foto) }}" width="80">
+<img src="{{ asset('storage/' . $pemasukan->foto) }}" width="80">
                                 @else
                                     Tidak ada foto
                                 @endif
@@ -92,7 +92,7 @@
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d-m-Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pengeluaran->foto)
-<img src="{{ asset('storage/pengeluaran_fotos/' . $pengeluaran->foto) }}" width="80">
+<img src="{{ asset('storage/' . $pengeluaran->foto) }}" width="80">
                                 @else
                                     Tidak ada foto
                                 @endif

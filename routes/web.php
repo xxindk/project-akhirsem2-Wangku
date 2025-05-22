@@ -26,3 +26,4 @@ Route::get('/pengeluarans/{id}/edit', [JournalController::class, 'editPengeluara
 // Update data
 Route::put('/pemasukans/{id}', [JournalController::class, 'updatePemasukan']);
 Route::put('/pengeluarans/{id}', [JournalController::class, 'updatePengeluaran']);
+
