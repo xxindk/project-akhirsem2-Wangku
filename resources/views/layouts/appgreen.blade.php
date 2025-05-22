@@ -12,42 +12,56 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+ <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom, #80A4A7, #F3F3F3);
+        min-height: 100vh;
+    }
 
-        .btn-white:hover {
-    background-color: #e9e9e9 !important;
-    border-color: #e9e9e9;
+    .btn-white:hover {
+        background-color: #e9e9e9 !important;
+        border-color: #e9e9e9;
+    }
+
+    .btn-white:active,
+    .btn-white.show {
+        background-color: #f0f0f0 !important;
+        border-color: #f0f0f0 !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    .icon-hover-white i {
+    transition: color 0.3s ease;
+}
+.icon-hover-white:active i,
+    .icon-hover-white.show i,
+.icon-hover-white:hover i
+ {
+    color: black !important;
 }
 
-.btn-white:active,
-.btn-white.show {
-    background-color: #f0f0f0 !important;
-    border-color: #f0f0f0 !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-    </style>
+</style>
+
 </head>
-<body class="p-0 m-0 bg-white">
+<body class="p-0 m-0">
 
     <div class="container-fluid p-0">
 <nav class="d-flex align-items-center px-3 py-2 sticky-top" style="background: transparent;">
             {{-- Logo --}}
             <a href="#" class="me-auto">
-                <img src="{{ asset('images/darklogoandfont.png') }}" alt="logo" style="max-height: 40px;">
+                <img src="{{ asset('images/lightlogoandfont.png') }}" alt="logo" style="max-height: 40px;">
             </a>
 
             {{-- Hello User --}}
-            <span class="fw-semibold me-3 text-dark">Hello, User!</span>
+            <span class="fw-semibold me-3 text-white">Hello, User!</span>
 
             {{-- Akun Dropdown --}}
             <div class="dropdown">
-                <a class="btn btn-white d-flex align-items-center p-2 me-2" href="#" role="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-fill fs-5"></i>
-                </a>
+                <a class="btn btn-white d-flex align-items-center p-2 me-2 icon-hover-white" href="#" role="button" data-bs-toggle="dropdown">
+    <i class="bi bi-person-fill fs-5 text-white"></i>
+</a>
+
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                     <li>
                         <a class="dropdown-item d-flex align-items-center " href="#">
@@ -69,9 +83,10 @@
 
             {{-- Menu Dropdown --}}
             <div class="dropdown ms-2 ">
-                <a class="btn btn-white d-flex align-items-center p-2 " href="#" role="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-list fs-5"></i>
-                </a>
+                <a class="btn btn-white d-flex align-items-center p-2 icon-hover-white" href="#" role="button" data-bs-toggle="dropdown">
+    <i class="bi bi-list fs-5 text-white"></i>
+</a>
+
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
 <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('home') }}">Halaman Utama</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="journal">Jurnal Pengeluaran dan Pemasukan</a></li>
@@ -86,17 +101,7 @@
 
     <main class="container mt-3">
         @yield('content')
-        
     </main>
-    {{-- Footer --}}
-<footer class="bg-white text-center py-4 position-relative mt-5">
-
-    {{-- Elemen Gambar Hiasan --}}
-    <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer" 
-         class="position-absolute bottom-10 start-50 translate-middle-x" 
-         style="width: full; margin-bottom: -60px; pointer-events: none;">
-</footer>
-
 
     {{-- Bootstrap Scripts --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

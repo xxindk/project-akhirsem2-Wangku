@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appgreen')
 
 @section('content')
 <div class="container mx-auto p-4">
@@ -229,3 +229,4 @@ function closeModalPengeluaran() {
     {!! $chartPemasukan->script() !!}
     {!! $chartPengeluaran->script() !!}
 @endpush
+@endsection
