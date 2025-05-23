@@ -75,7 +75,7 @@
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('home') }}">Halaman Utama</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="journal">Jurnal Pengeluaran dan Pemasukan</a></li>
-                    <li><a class="dropdown-item py-2 fw-semibold" href="#">Pengingat Keuangan</a></li>
+                    <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('reminders.index') }}">Pengingat Keuangan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('utang-piutang.index') }}">Catatan Utang-Piutang</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="#">Jurnal Keuangan Bulanan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="#">Target Wangku</a></li>
