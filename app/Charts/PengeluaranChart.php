@@ -25,7 +25,6 @@ class PengeluaranChart
         });
 
         return $this->chart->donutChart()
-            ->setTitle('Pengeluaran per Kategori')
             ->addData($values->toArray())
             ->setLabels($labels);
     }

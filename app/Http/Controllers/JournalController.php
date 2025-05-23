@@ -180,11 +180,19 @@ public function index(PemasukanChart $pemasukanChart, PengeluaranChart $pengelua
     $labelsPemasukan = $dataPemasukan->pluck('kategori.nama')->toArray();
     $valuesPemasukan = $dataPemasukan->pluck('total')->toArray();
 
+$chartPemasukanLabels = $labelsPemasukan;
+$chartPemasukanColors = [
+    '#00FF7F', '#3CB371', '#20B2AA', '#5F9EA0'
+];
+
+
     // Buat chart pemasukan
-    $chartPemasukan = (new LarapexChart)->pieChart()
-        ->setTitle('Pemasukan Berdasarkan Kategori')
+    $chartPemasukan = (new LarapexChart)->donutChart()
         ->setLabels($labelsPemasukan)
-        ->addData($valuesPemasukan);
+        ->addData($valuesPemasukan)
+         ->setWidth(500)
+        ->setHeight(300)
+        ->setColors($chartPemasukanColors);
 
     // Ambil data pengeluaran per kategori
     $dataPengeluaran = Pengeluaran::with('kategori')
@@ -195,20 +203,39 @@ public function index(PemasukanChart $pemasukanChart, PengeluaranChart $pengelua
     $labelsPengeluaran = $dataPengeluaran->pluck('kategori.nama')->toArray();
     $valuesPengeluaran = $dataPengeluaran->pluck('total')->toArray();
 
+       
+    $chartPengeluaranColors = [
+   '#8B0000', '#D2691E', '#FFFF99', '#32CD32', '#1E90FF',
+'#00008B', '#8A2BE2', '#FFB6C1', '#C71585', '#ADD8E6',
+'#FFD700', '#20B2AA'
+];
     // Buat chart pengeluaran
-    $chartPengeluaran = (new LarapexChart)->pieChart()
-        ->setTitle('Pengeluaran Berdasarkan Kategori')
+    $chartPengeluaran = (new LarapexChart)->donutChart()
         ->setLabels($labelsPengeluaran)
-        ->addData($valuesPengeluaran);
+        ->addData($valuesPengeluaran)
+         ->setWidth(500)
+         ->setHeight(300)
+        ->setColors($chartPengeluaranColors);
+        $chartPengeluaranLabels = $labelsPengeluaran;
+       
 
-    return view('journal', [
-        'chartPemasukan' => $chartPemasukan,
-        'chartPengeluaran' => $chartPengeluaran,
-        'kategoriPemasukan' => $kategoriPemasukan,
-        'kategoriPengeluaran' => $kategoriPengeluaran,
-        'pemasukans' => Pemasukan::with('kategori')->get(),
-        'pengeluarans' => Pengeluaran::with('kategori')->get(),
-    ]);
+$totalPemasukan = array_sum($valuesPemasukan);
+$totalPengeluaran = array_sum($valuesPengeluaran);
+   return view('journal', [
+    'chartPemasukan' => $chartPemasukan,
+    'chartPemasukanLabels' => $chartPemasukanLabels,
+    'chartPemasukanColors' => $chartPemasukanColors,
+    'chartPengeluaran' => $chartPengeluaran,
+    'chartPengeluaranLabels' => $chartPengeluaranLabels,
+    'chartPengeluaranColors' => $chartPengeluaranColors,
+    'kategoriPemasukan' => $kategoriPemasukan,
+    'kategoriPengeluaran' => $kategoriPengeluaran,
+    'pemasukans' => Pemasukan::with('kategori')->get(),
+    'pengeluarans' => Pengeluaran::with('kategori')->get(),
+    'totalPemasukan' => $totalPemasukan,
+    'totalPengeluaran' => $totalPengeluaran,
+]);
+
 }
 
 
