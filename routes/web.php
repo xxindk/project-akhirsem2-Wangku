@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\ReminderController;
 
 // Halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -34,3 +35,9 @@ Route::post('/transaksi-utang-piutangs', [TransaksiUtangPiutangController::class
 Route::get('/transaksi-utang-piutangs/{id}/edit', [TransaksiUtangPiutangController::class, 'edit']);
 Route::put('/transaksi-utang-piutangs/{id}', [TransaksiUtangPiutangController::class, 'update']);
 Route::delete('/transaksi-utang-piutangs/{id}', [TransaksiUtangPiutangController::class, 'destroy']);
+
+Route::get('/reminders', [ReminderController::class, 'index'])->name('reminders.index');
+Route::post('/reminders', [ReminderController::class, 'store'])->name('reminders.store');
+Route::get('/reminders/{id}/edit', [ReminderController::class, 'edit'])->name('reminders.edit');
+Route::put('/reminders/{reminder}', [ReminderController::class, 'update'])->name('reminders.update');
+Route::delete('/reminders/{reminder}', [ReminderController::class, 'destroy'])->name('reminders.destroy');
