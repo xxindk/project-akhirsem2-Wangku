@@ -89,12 +89,11 @@
         
     </main>
     {{-- Footer --}}
-<footer class="bg-white text-center py-4 position-relative mt-5">
+<footer class="bg-white  ">
 
     {{-- Elemen Gambar Hiasan --}}
-    <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer" 
-         class="position-absolute bottom-10 start-50 translate-middle-x" 
-         style="width: full; margin-bottom: -60px; pointer-events: none;">
+  <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer"
+         class="w-100 mt-5" style="max-height: 150px; object-fit: cover;">
 </footer>
 
 
