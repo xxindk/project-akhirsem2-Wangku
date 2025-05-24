@@ -1,6 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.appgreen')
 
 @section('content')
+
+<style>
+    h2.fw-bold {
+        color: white;
+    }
+
+    thead.table-header th {
+        background-color: #F47C46;
+        color: white;
+    }
+
+    table th, table td {
+        vertical-align: middle;
+    }
+</style>
+
 <div class="container">
     {{-- Header & Tambah --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -17,7 +33,7 @@
 
     {{-- Tabel --}}
     <table class="table table-bordered text-center">
-        <thead style="background-color: #F47C46; color: white;">
+        <thead class="table-header">
             <tr>
                 <th>Jenis Tagihan</th>
                 <th>Nominal</th>
@@ -30,7 +46,7 @@
             @foreach ($reminders as $item)
             <tr>
                 <td>{{ $item->jenis_tagihan }}</td>
-                <td>Rp{{ number_format($item->nominal, 0, ',', '.') }}</td>
+                <td>Rp{{ number_format($item->nominal, 0, ',', '.') }},-</td>
                 <td>{{ \Carbon\Carbon::parse($item->jatuh_tempo)->format('d/m/Y') }}</td>
                 <td>{{ $item->status }}</td>
                 <td>
@@ -134,7 +150,7 @@ function editReminder(id) {
         .then(res => res.json())
         .then(data => {
             document.querySelector('#modalEdit [name=jenis_tagihan]').value = data.jenis_tagihan;
-            document.querySelector('#modalEdit [name=nominal]').value = data.nominal;
+            document.querySelector('#modalEdit [name=nominal]').value = data.nominal ?? '';
             document.querySelector('#modalEdit [name=jatuh_tempo]').value = data.jatuh_tempo;
             document.querySelector('#modalEdit [name=status]').value = data.status;
 
@@ -144,3 +160,4 @@ function editReminder(id) {
 }
 </script>
 @endpush
+ 

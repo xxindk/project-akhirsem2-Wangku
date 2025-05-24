@@ -1,6 +1,22 @@
-@extends('layouts.app') 
+@extends('layouts.appgreen') 
 
 @section('content')
+
+<style>
+    h2.fw-bold {
+        color: white;
+    }
+
+    thead.table-header th {
+        background-color: #F47C46;
+        color: white;
+    }
+
+    table th, table td {
+        vertical-align: middle;
+    }
+</style>
+
 <div class="container">
     
     {{-- Header & Tombol Tambah --}}
@@ -18,7 +34,7 @@
 
     {{-- Tabel Data --}}
     <table class="table table-bordered text-center">
-        <thead style="background-color: #F47C46; color: white;">
+        <thead class="table-header">
             <tr>
                 <th>Jenis</th>
                 <th>Nominal</th>
