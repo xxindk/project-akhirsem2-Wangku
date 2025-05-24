@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JournalController;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KeuanganBulananController;
 
+use App\Models\Target;
 Route::get('/keuangan-bulanan', [KeuanganBulananController::class, 'index'])->name('keuangan.bulanan');
 
 
@@ -36,6 +38,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::middleware('auth')->group(function () {
     Route::get('/journal', [JournalController::class, 'index'])->name('journal');
 
+
     // Simpan data
     Route::post('/pemasukans/store', [JournalController::class, 'storePemasukan']);
     Route::post('/pengeluarans/store', [JournalController::class, 'storePengeluaran']);
@@ -51,4 +54,12 @@ Route::middleware('auth')->group(function () {
     // Update data
     Route::put('/pemasukans/{id}', [JournalController::class, 'updatePemasukan']);
     Route::put('/pengeluarans/{id}', [JournalController::class, 'updatePengeluaran']);
+<<<<<<< HEAD
 });
+=======
+});
+
+use App\Http\Controllers\TargetController;
+
+Route::resource('/target', TargetController::class);
+>>>>>>> 1362181 (Simpan perubahan lokal sebelum pull)
