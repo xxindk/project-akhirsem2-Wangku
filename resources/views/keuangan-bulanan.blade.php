@@ -1,3 +1,5 @@
+@extends('layouts.appgreen')
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -98,12 +100,10 @@
 
   <div class="filter">
     <select>
-      <option>Tahun</option>
-      <option>2025</option>
+      <option selected>{{ $tahun }}</option>
     </select>
     <select>
-      <option>Bulan</option>
-      <option>Mei</option>
+      <option selected>{{ $bulan }}</option>
     </select>
   </div>
 
@@ -117,11 +117,11 @@
     <tbody>
       <tr>
         <td>Pengeluaran</td>
-        <td>Rp 7.300.000,-</td>
+        <td>Rp {{ number_format($pengeluaran, 0, ',', '.') }},-</td>
       </tr>
       <tr>
         <td>Pemasukan</td>
-        <td>Rp 16.900.000,-</td>
+        <td>Rp {{ number_format($pemasukan, 0, ',', '.') }},-</td>
       </tr>
     </tbody>
   </table>
@@ -140,7 +140,7 @@
         labels: ['Pengeluaran', 'Pemasukan'],
         datasets: [{
           label: 'Jumlah (juta)',
-          data: [7.3, 16.9],
+          data: [{{ $pengeluaran / 1000000 }}, {{ $pemasukan / 1000000 }}],
           backgroundColor: ['#e74c3c', '#27ae60']
         }]
       },
