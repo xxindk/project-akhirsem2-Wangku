@@ -11,10 +11,11 @@
       padding: 0;
     }
 
-    body, html {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-    }
+    html, body {
+    height: 100%;
+    overflow: hidden; /* 👉 Cegah scroll */
+    font-family: 'Segoe UI', sans-serif;
+  }
 
     .container {
       display: flex;
@@ -97,17 +98,22 @@ form button {
 
 .right h2 {
   color: #f4a340;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: -2rem;
+  margin-left: -17px; 
 }
 
 .right p {
-  font-size: 1rem;
+  font-size: 1.25rem;      /* lebih besar dari sebelumnya */
   color: #333;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  margin-top: -2rem;     /* naikkan sedikit ke atas */
+  margin-bottom: 1.8rem;   /* beri jarak bawah */
+  margin-left: -15px; 
 }
+
 
 .right a button {
   padding: 0.7rem 1.8rem;
@@ -119,6 +125,8 @@ form button {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-left: -13px; 
+  margin-top: -1rem;
 }
 
 .right a button:hover {
@@ -188,10 +196,12 @@ form button {
     <div class="right">
   <div class="text">
     <h2>Halo Kawan !</h2>
-    <p>Masukkan detail pribadi Anda dan mulailah perjalanan bersama kami</p>
+    <p>Masukkan detail pribadi Anda dan <br> mulailah perjalanan bersama kami</p>
+
     <a href="{{ route('signup') }}"><button>Sign Up</button></a>
   </div>
-  <img src="/images/maskot1.png" alt="Maskot" class="maskot" />
+  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 70%; transform: translateX(-50%); width: 720px; max-width: none;">
+
 </div>
 
 

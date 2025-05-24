@@ -146,7 +146,7 @@
                         <i class="bi bi-person-plus-fill me-1"></i> Sign Up
                     </button>
                 </a>
-                <a href="{{ route('signin') }}">
+                <a href="{{ route('login') }}">
                     <button class="btn btn-signin fw-semibold">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                     </button>

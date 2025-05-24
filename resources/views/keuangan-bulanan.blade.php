@@ -1,46 +1,11 @@
 @extends('layouts.appgreen')
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keuangan Bulanan - WangKu</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@section('content')
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(140deg, #5e8c94, #b1c6c8);
-      color: #333;
-      padding: 2rem;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 30px;
-      margin-right: 0.5rem;
-    }
-
-    .user-info {
-      color: white;
-      font-size: 0.9rem;
     }
 
     h2 {
@@ -85,62 +50,53 @@
       border-radius: 8px;
     }
   </style>
-</head>
-<body>
-  <header>
-    <div class="logo">
-      <img src="/images/lightlogoandfont.png" alt="WangKu Logo" />
+
+  <div class="container py-4">
+    <h2>Keuangan Bulanan</h2>
+
+    <div class="filter">
+      <form method="GET" action="{{ route('keuangan.bulanan') }}" id="filterForm" style="display: flex; gap: 1rem;">
+        <select name="tahun" onchange="document.getElementById('filterForm').submit();">
+          @foreach ($tahunList as $thn)
+            <option value="{{ $thn }}" {{ $thn == $tahun ? 'selected' : '' }}>{{ $thn }}</option>
+          @endforeach
+        </select>
+
+        <select name="bulan" onchange="document.getElementById('filterForm').submit();">
+          @foreach ($bulanList as $bln)
+            <option value="{{ $bln }}" {{ $bln == $bulan ? 'selected' : '' }}>{{ $bln }}</option>
+          @endforeach
+        </select>
+      </form>
     </div>
-    <div class="user-info">
-      Hello, User!
+
+    <table>
+      <thead>
+        <tr>
+          <th>Jenis</th>
+          <th>Nominal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pengeluaran</td>
+          <td>Rp {{ number_format($pengeluaran, 0, ',', '.') }},-</td>
+        </tr>
+        <tr>
+          <td>Pemasukan</td>
+          <td>Rp {{ number_format($pemasukan, 0, ',', '.') }},-</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Grafik Keuangan Bulanan</h2>
+
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
     </div>
-  </header>
-
-  <h2>Keuangan Bulanan</h2>
-
- <div class="filter">
-  <form method="GET" action="{{ route('keuangan.bulanan') }}" id="filterForm" style="display: flex; gap: 1rem;">
-    <select name="tahun" onchange="document.getElementById('filterForm').submit();">
-      @foreach ($tahunList as $thn)
-        <option value="{{ $thn }}" {{ $thn == $tahun ? 'selected' : '' }}>{{ $thn }}</option>
-      @endforeach
-    </select>
-
-    <select name="bulan" onchange="document.getElementById('filterForm').submit();">
-      @foreach ($bulanList as $bln)
-        <option value="{{ $bln }}" {{ $bln == $bulan ? 'selected' : '' }}>{{ $bln }}</option>
-      @endforeach
-    </select>
-  </form>
-</div>
-
-
-
-  <table>
-    <thead>
-      <tr>
-        <th>Jenis</th>
-        <th>Nominal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Pengeluaran</td>
-        <td>Rp {{ number_format($pengeluaran, 0, ',', '.') }},-</td>
-      </tr>
-      <tr>
-        <td>Pemasukan</td>
-        <td>Rp {{ number_format($pemasukan, 0, ',', '.') }},-</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Grafik Keuangan Bulanan</h2>
-
-  <div class="chart-container">
-    <canvas id="chart"></canvas>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const ctx = document.getElementById('chart').getContext('2d');
     new Chart(ctx, {
@@ -170,5 +126,4 @@
       }
     });
   </script>
-</body>
-</html>
+@endsection

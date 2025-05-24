@@ -23,17 +23,16 @@
       height: 100vh;
     }
 
-    .left {
-      width: 50%;
-      background-color: white;
-      padding: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      overflow:visible;
-    }
+   .left {
+  width: 50%;
+  background-color: white;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 
     .left img.logo {
       top: 2rem;
@@ -41,88 +40,31 @@
       height: 35px;
     }
 
-    ..left h2 {
-  color: #f4a340;
-  font-size: 2.8rem; /* Diperbesar agar selaras dengan kanan */
-  font-weight: bold;
-  margin-bottom: 1.2rem;
-  position: relative;
-  z-index: 4;
-  
-}
-
-
-    .left p {
-  color: #333;
-  font-size: 1.3rem;   /* Diperbesar */
-  max-width: 380px;    /* Disesuaikan untuk menampung teks lebih besar */
-  line-height: 1.8;    /* Agar rapi dan enak dibaca */
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 4;
-}
-
-<div class="maskot-wrapper">
-  <img src="/images/maskot1.png" alt="Maskot" class="maskot" />
-</div>
-
-.maskot-wrapper {
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-
-.left img.maskot {
-    position: relative;
-  width: 700px;
-  bottom: -1000rem;
-  left: 3rem;
-  z-index: 1;
-}
-
-    .btn-signin {
-      padding: 0.7rem 2rem;
-      background-color: #2da5f3;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-bottom: 2rem;
+    .left img.maskot {
       position: relative;
-      z-index: 4;
+      width: 700px;
+      bottom: 1rem;
+      left: 3rem;
+      z-index: 1;
     }
 
-    .left img.maskot {
-  width: 700px;              /* Diperbesar */
-  bottom: 1rem;              /* Lebih ke bawah */
-  left: 3rem;
-  z-index: 1;
-}
-
+    .btn-signin {
+      display: none; /* disembunyikan karena teks/sign-in dihapus */
+    }
 
     .right {
-  width: 50%;
-  background: linear-gradient(140deg, #5e8c94, #7ba4ab);
-  color: white;
-  padding:4rem 4rem 4rem 6rem; /* kiri ditambah */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; /* GANTI */
-  border-top-left-radius: 100% 100%;
-  border-bottom-left-radius: 100% 100%;
-  overflow: hidden;
-}
-
-
-   .left h2 {
-  color: #f4a340;
-  font-size: 3.8rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
+      width: 50%;
+      background: linear-gradient(140deg, #5e8c94, #7ba4ab);
+      color: white;
+      padding: 4rem 4rem 4rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-top-left-radius: 100% 100%;
+      border-bottom-left-radius: 100% 100%;
+      overflow: hidden;
+    }
 
     .right h2 {
       font-size: 1.8rem;
@@ -130,6 +72,7 @@
       margin-bottom: 2rem;
       padding-left: 1rem;
     }
+
     .right form {
       display: flex;
       flex-direction: column;
@@ -160,22 +103,20 @@
       color: #aaa;
     }
 
-  .right button {
-  padding: 0.6rem 1.5rem;        /* ukuran tombol sedikit lebih kecil */
-  background-color: #f4a340;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 1rem;
-
-  display: block;                /* agar bisa diatur margin */
-  margin-left: auto;            /* mendorong tombol ke kanan */
-  margin-right: 0;              /* pastikan margin kanan nol */
-}
-
+    .right button {
+      padding: 0.6rem 1.5rem;
+      background-color: #f4a340;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: 0;
+    }
 
     ul {
       padding-left: 1rem;
@@ -193,7 +134,7 @@
       }
 
       .left img.maskot {
-        max-width: 220px
+        max-width: 220px;
         position: static;
         margin-top: 3rem;
       }
@@ -207,13 +148,29 @@
 <body>
   <div class="container">
     <!-- KIRI -->
-    <div class="left">
-      <img src="/images/darklogoandfont.png" alt="Wangku" class="logo">
-      <h2>Selamat datang !</h2>
-      <p>Untuk tetap terhubung dengan kami, silakan login dengan info pribadi Anda</p>
-      <a href="{{ route('signin') }}"> <button class="btn-signin">Sign In</button></a>
-      <img src="/images/maskot1.png" alt="Maskot" class="maskot" />
-    </div>
+   <div class="left">
+  <div class="w-100 d-flex justify-content-start align-items-start">
+    <img src="/images/darklogoandfont.png" alt="Logo WangKu" class="logo" style="position: absolute; top: 30px; left: 30px; height: 35px;">
+  </div>
+
+  <div style="margin-top: -80px; max-width: 420px;">
+    <h2 style="color: #f4a340; font-size: 40px; font-weight: bold; margin-bottom: 20px;">Selamat datang !</h2>
+    <p style="margin-bottom: 28px; font-size: 18px; color: #333;">
+  Untuk tetap terhubung dengan kami,<br>
+  silakan login dengan info pribadi Anda
+</p>
+
+
+    <a href="{{ route('signin') }}" 
+       class="btn" 
+       style="background-color: #339af0; color: white; font-weight: bold; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 16px;">
+       Sign In
+    </a>
+  </div>
+
+  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 40%; transform: translateX(-50%); width: 720px;">
+</div>
+
 
     <!-- KANAN -->
     <div class="right">
@@ -231,15 +188,16 @@
         @csrf
         <div>
           <label for="username">Username</label>
-          <input id="username" type="text" name="username" placeholder="" value="{{ old('username') }}" required />
+          <input id="username" type="text" name="username" value="{{ old('username') }}" required />
         </div>
         <div>
           <label for="email">E-mail</label>
-          <input id="email" type="email" name="email" placeholder="" value="{{ old('email') }}" required />
+          <input id="email" type="email" name="email" value="{{ old('email') }}" required />
         </div>
         <div>
           <label for="password">Password</label>
-          <input id="password" type="password" name="password" placeholder="" required />
+          <input id="password" type="password" name="password" required />
+          
         </div>
         <button type="submit">Sign Up</button>
       </form>
