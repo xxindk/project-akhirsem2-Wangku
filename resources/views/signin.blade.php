@@ -139,6 +139,7 @@ form button {
   position: absolute;
   bottom: 2rem;
   right: 2rem;
+  pointer-events: none;
 }
 
 
@@ -197,8 +198,11 @@ form button {
   <div class="text">
     <h2>Halo Kawan !</h2>
     <p>Masukkan detail pribadi Anda dan <br> mulailah perjalanan bersama kami</p>
-
-    <a href="{{ route('signup') }}"><button>Sign Up</button></a>
+    <a href="{{ route('signup') }}" style="text-decoration: none;">
+  <div style="padding: 0.7rem 1.8rem; background-color: #2da5f3; color: white; border-radius: 8px; font-size: 1rem; font-weight: bold; text-align: center; width: fit-content;">
+    Sign Up
+  </div>
+</a>
   </div>
   <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 70%; transform: translateX(-50%); width: 720px; max-width: none;">
 

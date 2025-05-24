@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JournalController;
@@ -7,13 +11,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KeuanganBulananController;
 use App\Http\Controllers\TransaksiUtangPiutangController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\TargetController;
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
 
 // --------------------
 // HALAMAN AWAL (WELCOME, TANPA LOGIN)
 // --------------------
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+
 
 // --------------------
 // ROUTING AUTENTIKASI (SIGNUP & SIGNIN)
@@ -24,7 +31,8 @@ Route::post('/signup', [AuthController::class, 'signupProcess'])->name('signup.p
 Route::get('/signin', [AuthController::class, 'showSignin'])->name('login'); // "login" digunakan oleh middleware auth
 Route::post('/signin', [AuthController::class, 'signinProcess'])->name('signin.process');
 
-Route::get('/signin', [AuthController::class, 'showSignin'])->name('signin');
+Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
+
 
 
 // --------------------
@@ -63,4 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/reminders/{id}/edit', [ReminderController::class, 'edit'])->name('reminders.edit');
     Route::put('/reminders/{reminder}', [ReminderController::class, 'update'])->name('reminders.update');
     Route::delete('/reminders/{reminder}', [ReminderController::class, 'destroy'])->name('reminders.destroy');
+
+
+Route::get('/target', [TargetController::class, 'index'])->name('target.index');
+
+
 });

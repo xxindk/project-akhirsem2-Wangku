@@ -60,9 +60,9 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center text-danger" href="{{ url('/logout') }}">
-                            <i class="bi bi-box-arrow-right me-2 "></i>
-                            Logout
+                        <a class="dropdown-item d-flex align-items-center text-danger" 
+                         class="text-danger" href="{{ route('logout') }}">Logout</a>
+
                         </a>
                     </li>
                 </ul>

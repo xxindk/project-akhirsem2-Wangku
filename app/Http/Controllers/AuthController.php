@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class AuthController extends Controller
 {
     // Tampilkan halaman sign up
@@ -58,12 +59,14 @@ class AuthController extends Controller
     }
 
     // Logout (opsional)
-    public function logout(Request $request)
+
+     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('welcome');
     }
+    
 }
