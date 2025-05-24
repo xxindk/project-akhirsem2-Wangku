@@ -76,7 +76,7 @@
 
     th, td {
       padding: 1rem;
-      text-align: left;
+      text-align: center;
     }
 
     .chart-container {
@@ -98,14 +98,23 @@
 
   <h2>Keuangan Bulanan</h2>
 
-  <div class="filter">
-    <select>
-      <option selected>{{ $tahun }}</option>
+ <div class="filter">
+  <form method="GET" action="{{ route('keuangan.bulanan') }}" id="filterForm" style="display: flex; gap: 1rem;">
+    <select name="tahun" onchange="document.getElementById('filterForm').submit();">
+      @foreach ($tahunList as $thn)
+        <option value="{{ $thn }}" {{ $thn == $tahun ? 'selected' : '' }}>{{ $thn }}</option>
+      @endforeach
     </select>
-    <select>
-      <option selected>{{ $bulan }}</option>
+
+    <select name="bulan" onchange="document.getElementById('filterForm').submit();">
+      @foreach ($bulanList as $bln)
+        <option value="{{ $bln }}" {{ $bln == $bulan ? 'selected' : '' }}>{{ $bln }}</option>
+      @endforeach
     </select>
-  </div>
+  </form>
+</div>
+
+
 
   <table>
     <thead>
