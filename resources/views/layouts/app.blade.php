@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     {{-- Bootstrap CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -77,8 +78,13 @@
                     <li><a class="dropdown-item py-2 fw-semibold" href="journal">Jurnal Pengeluaran dan Pemasukan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('reminders.index') }}">Pengingat Keuangan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('utang-piutang.index') }}">Catatan Utang-Piutang</a></li>
+<<<<<<< HEAD
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route ('keuangan.bulanan') }}">Jurnal Keuangan Bulanan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="#">Target Wangku</a></li>
+=======
+                    <li><a class="dropdown-item py-2 fw-semibold" href="#">Jurnal Keuangan Bulanan</a></li>
+                    <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('target.index') }}">Target Wangku</a></li>
+>>>>>>> 1362181 (Simpan perubahan lokal sebelum pull)
                 </ul>
             </div>
         </nav>

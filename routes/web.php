@@ -3,10 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JournalController;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KeuanganBulananController;
+<<<<<<< HEAD
 use App\Http\Controllers\TransaksiUtangPiutangController;
 use App\Http\Controllers\ReminderController;
+=======
+
+use App\Models\Target;
+Route::get('/keuangan-bulanan', [KeuanganBulananController::class, 'index'])->name('keuangan.bulanan');
+
+>>>>>>> 833a28787516fab96e989f9911aa6df0006447ec
 
 // --------------------
 // HALAMAN AWAL (WELCOME, TANPA LOGIN)
@@ -34,8 +42,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 // --------------------
 Route::middleware('auth')->group(function () {
 
+<<<<<<< HEAD
     // Jurnal Keuangan
     Route::get('/journal', [JournalController::class, 'index'])->name('journal');
+=======
+
+    // Simpan data
+>>>>>>> 833a28787516fab96e989f9911aa6df0006447ec
     Route::post('/pemasukans/store', [JournalController::class, 'storePemasukan']);
     Route::post('/pengeluarans/store', [JournalController::class, 'storePengeluaran']);
     Route::delete('/pemasukans/{id}', [JournalController::class, 'destroyPemasukan']);
@@ -44,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengeluarans/{id}/edit', [JournalController::class, 'editPengeluaran']);
     Route::put('/pemasukans/{id}', [JournalController::class, 'updatePemasukan']);
     Route::put('/pengeluarans/{id}', [JournalController::class, 'updatePengeluaran']);
+<<<<<<< HEAD
 
     // Keuangan Bulanan
     Route::get('/keuangan-bulanan', [KeuanganBulananController::class, 'index'])->name('keuangan.bulanan');
@@ -62,3 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/reminders/{reminder}', [ReminderController::class, 'update'])->name('reminders.update');
     Route::delete('/reminders/{reminder}', [ReminderController::class, 'destroy'])->name('reminders.destroy');
 });
+=======
+<<<<<<< HEAD
+});
+=======
+});
+
+use App\Http\Controllers\TargetController;
+
+Route::resource('/target', TargetController::class);
+>>>>>>> 1362181 (Simpan perubahan lokal sebelum pull)
+>>>>>>> 833a28787516fab96e989f9911aa6df0006447ec
