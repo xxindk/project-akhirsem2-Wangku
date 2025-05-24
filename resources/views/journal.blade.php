@@ -1,6 +1,41 @@
 @extends('layouts.appgreen')
 
 @section('content')
+<style>
+#legendPemasukan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+}
+.legend-color {
+    width: 30px;
+    height: 17px;
+    border-radius: 5px;
+}
+#legendPengeluaran {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+}
+.legend-color {
+    width: 30px;
+    height: 17px;
+    border-radius: 5px;
+}
+</style>
+
 <div class="container mx-auto p-4">
     
 <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Catatan Pengeluaran</h2>       
@@ -62,6 +97,28 @@
         </div>
 
       
+        <div class="row g-4 mt-3">
+    <!-- Chart -->
+    <div class="col-md-6">
+        <div class="p-4 rounded text-black w-100" style="background:white;">
+            <h3 class="h4 fw-bold mb-4 mt-2 text-start opacity-100">Total Pengeluaran</h3>
+            <div class="relative" style="height: 250px;">
+                <canvas id="chartPengeluaran" class="w-100 h-100"></canvas>
+            </div>
+            <div class="text-center text-xl fw-bold mt-4 text-black">
+                Rp {{ number_format($totalPengeluaran, 0, ',', '.') }},-
+            </div>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="col-md-6">
+        <div class="p-4 rounded text-black w-100" style="background:white; min-height: 407px;">
+            <h4 class="fw-semibold mb-3">Keterangan</h4>
+            <div id="legendPengeluaran" class="d-flex flex-wrap gap-3"></div>
+        </div>
+    </div>
+</div>
 
 
     <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Catatan Pemasukan</h2>       
@@ -116,29 +173,33 @@
         </div>
 
 
-<div class="row g-10-rem  mt-4 opacity-100">
-      <!-- Chart -->
-        <div class="col-md-6 opacity-100">
-        <div class="p-4 rounded text-white" style="background: white;">
-            <h2 class="h6 fw-semibold text-black mb-4 opacity-100">Total Pemasukan</h2> 
-            {!! $chartPemasukan->container() !!}
-            <div class="text-center text-xl font-bold mt-4">
+
+<div class="row g-4 mt-3">
+    <!-- Chart -->
+    <div class="col-md-6">
+        <div class="p-4 rounded text-black w-100" style="background:white;">
+            <h3 class="h4 fw-bold mb-4 mt-2 text-start opacity-100">Total Pemasukan</h3>
+            <div class="relative" style="height: 250px;">
+                <canvas id="chartPemasukan" class="w-100 h-100"></canvas>
+            </div>
+            <div class="text-center text-xl fw-bold mt-4 text-black">
                 Rp {{ number_format($totalPemasukan, 0, ',', '.') }},-
             </div>
         </div>
     </div>
 
-    <!-- Chart -->
-        <div class="col-md-6 opacity-100">
-        <div class="p-4 rounded text-white" style="background: white;">
-            <h2 class="h6 fw-semibold text-black mb-4 opacity-100">Total Pengeluaran</h2> 
-            {!! $chartPengeluaran->container() !!}
-            <div class="text-center text-xl font-bold mt-4">
-                Rp {{ number_format($totalPengeluaran, 0, ',', '.') }},-
-            </div>
+    <!-- Legend -->
+    <div class="col-md-6">
+        <div class="p-4 rounded text-black w-100" style="background:white; min-height: 407px;">
+            <h4 class="fw-semibold mb-3">Keterangan</h4>
+            <div id="legendPemasukan" class="d-flex flex-wrap gap-3"></div>
         </div>
     </div>
 </div>
+
+
+
+
 
 <div class="flex justify-center mt-5">
     <img src="{{ asset('images/journalbawah.png') }}" alt="Gambar Akhir" class="w-100 mt-5" style=" object-fit: cover;">
@@ -275,8 +336,110 @@ function closeModalPengeluaran() {
 }
 
 </script>
-@push('scripts')
-    {!! $chartPemasukan->script() !!}
-    {!! $chartPengeluaran->script() !!}
-@endpush
+
+
+@endsection
+
+@section('scripts')
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Data chart dari backend
+    const dataPemasukan = @json($chartPemasukanData);
+    const dataPengeluaran = @json($chartPengeluaranData);
+
+    // Chart Pemasukan
+    const chartPemasukan = new Chart(document.getElementById('chartPemasukan'), {
+    type: 'doughnut',
+    data: {
+        labels: dataPemasukan.labels,
+        datasets: [{
+            label: 'Pemasukan',
+            backgroundColor: [
+                '#8B0000', '#D2691E', '#1E90FF', '#32CD32' 
+            ],
+            data: dataPemasukan.data
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
+// Custom Legend Manual
+const legendContainerPemasukan = document.getElementById('legendPemasukan');
+const labelsPemasukan = dataPemasukan.labels;
+const colorsPemasukan = chartPemasukan.data.datasets[0].backgroundColor;
+
+labelsPemasukan.forEach((label, index) => {
+    const color = colorsPemasukan[index];
+    const item = document.createElement('div');
+    item.classList.add('legend-item');
+
+    const box = document.createElement('div');
+    box.classList.add('legend-color');
+    box.style.backgroundColor = color;
+
+    const text = document.createElement('span');
+    text.innerText = label;
+
+    item.appendChild(box);
+    item.appendChild(text);
+    legendContainerPemasukan.appendChild(item);
+});
+
+  
+
+    // Chart Pengeluaran
+       const chartPengeluaran = new Chart(document.getElementById('chartPengeluaran'), {
+    type: 'doughnut',
+    data: {
+        labels: dataPengeluaran.labels,
+        datasets: [{
+            label: 'Pengeluaran',
+                backgroundColor: ['#8B0000', '#D2691E', '#FFFF99', '#32CD32', '#1E90FF','#00008B', '#8A2BE2', '#FFB6C1', '#C71585', '#ADD8E6','#FFD700', '#20B2AA'],
+                data: dataPengeluaran.data
+            }]
+        },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
+// Custom Legend Manual
+const legendContainerPengeluaran = document.getElementById('legendPengeluaran');
+const labelsPengeluaran = dataPengeluaran.labels;
+const colorsPengeluaran = chartPengeluaran.data.datasets[0].backgroundColor;
+
+labelsPengeluaran.forEach((label, index) => {
+    const color = colorsPengeluaran[index];
+    const item = document.createElement('div');
+    item.classList.add('legend-item');
+
+    const box = document.createElement('div');
+    box.classList.add('legend-color');
+    box.style.backgroundColor = color;
+
+    const text = document.createElement('span');
+    text.innerText = label;
+
+    item.appendChild(box);
+    item.appendChild(text);
+    legendContainerPengeluaran.appendChild(item);
+});
+</script>
 @endsection
