@@ -244,7 +244,7 @@
       <img id="fotoPreviewPengeluaran" src="" alt="Preview Foto" style="display:none; max-width:150px; margin-top:10px;"><br>
 
       <div style="text-align:right;">
-        <button type="submit" style="background:#F4A261; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
+        <button type="submit" style="background:#F4A261; color:white; border:none; padding:7px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
       </div>
     </form>
 
@@ -281,8 +281,8 @@
       Foto: <input type="file" name="foto"><br>
       <img id="fotoPreviewPemasukan" src="" alt="Preview Foto" style="display:none; max-width:150px; margin-top:10px;"><br>
 
-      <div style="text-align:right;">
-        <button type="submit" style="background:#F4A261; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
+       <div style="text-align:right;">
+        <button type="submit" style="background:#F4A261; color:white; border:none; padding:7px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
       </div>
     </form>
 
