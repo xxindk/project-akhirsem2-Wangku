@@ -7,20 +7,20 @@
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    body {
-      margin: 0;
+    body, html {
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #1e1e1e;
-      height: 100vh;
+      overflow: hidden;
     }
 
     .container {
       display: flex;
       width: 100%;
       height: 100vh;
-      background-color: #fff;
     }
 
     .left {
@@ -32,29 +32,53 @@
       justify-content: center;
       align-items: flex-start;
       position: relative;
+      overflow:visible;
     }
 
     .left img.logo {
-      position: absolute;
       top: 2rem;
       left: 2rem;
       height: 35px;
     }
 
-    .left h2 {
-      color: #f4a340;
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
+    ..left h2 {
+  color: #f4a340;
+  font-size: 2.8rem; /* Diperbesar agar selaras dengan kanan */
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 4;
+  
+}
+
 
     .left p {
-      color: #333;
-      font-size: 1.1rem;
-      max-width: 320px;
-      line-height: 1.5;
-      margin-bottom: 2rem;
-    }
+  color: #333;
+  font-size: 1.3rem;   /* Diperbesar */
+  max-width: 380px;    /* Disesuaikan untuk menampung teks lebih besar */
+  line-height: 1.8;    /* Agar rapi dan enak dibaca */
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 4;
+}
+
+<div class="maskot-wrapper">
+  <img src="/images/maskot1.png" alt="Maskot" class="maskot" />
+</div>
+
+.maskot-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.left img.maskot {
+    position: relative;
+  width: 700px;
+  bottom: -1000rem;
+  left: 3rem;
+  z-index: 1;
+}
 
     .btn-signin {
       padding: 0.7rem 2rem;
@@ -66,67 +90,92 @@
       font-size: 1rem;
       cursor: pointer;
       margin-bottom: 2rem;
+      position: relative;
+      z-index: 4;
     }
 
     .left img.maskot {
-      width: 220px;
-      position: absolute;
-      bottom: 2rem;
-      left: 4rem;
-    }
+  width: 700px;              /* Diperbesar */
+  bottom: 1rem;              /* Lebih ke bawah */
+  left: 3rem;
+  z-index: 1;
+}
+
 
     .right {
-      width: 50%;
-      background: linear-gradient(140deg, #5e8c94, #7ba4ab);
-      color: white;
-      padding: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      border-top-left-radius: 50% 100%;
-      border-bottom-left-radius: 50% 100%;
-    }
+  width: 50%;
+  background: linear-gradient(140deg, #5e8c94, #7ba4ab);
+  color: white;
+  padding:4rem 4rem 4rem 6rem; /* kiri ditambah */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* GANTI */
+  border-top-left-radius: 100% 100%;
+  border-bottom-left-radius: 100% 100%;
+  overflow: hidden;
+}
+
+
+   .left h2 {
+  color: #f4a340;
+  font-size: 3.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
 
     .right h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       margin-bottom: 2rem;
+      padding-left: 1rem;
     }
-
-    form {
+    .right form {
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
+      width: 100%;
+      max-width: 320px;
     }
 
-    form label {
-      font-size: 1rem;
+    .right label {
+      display: block;
       margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
     }
 
-    form input {
+    .right input {
       padding: 0.8rem;
       border: none;
       border-radius: 8px;
       font-size: 1rem;
+      color: #333;
+      background-color: white;
+      width: 100%;
     }
 
-    form input::placeholder {
+    .right input::placeholder {
       color: #aaa;
     }
 
-    form button {
-      padding: 0.8rem;
-      background-color: #f4a340;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
+  .right button {
+  padding: 0.6rem 1.5rem;        /* ukuran tombol sedikit lebih kecil */
+  background-color: #f4a340;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  display: block;                /* agar bisa diatur margin */
+  margin-left: auto;            /* mendorong tombol ke kanan */
+  margin-right: 0;              /* pastikan margin kanan nol */
+}
+
 
     ul {
       padding-left: 1rem;
@@ -136,7 +185,6 @@
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-        height: auto;
       }
 
       .left, .right {
@@ -145,8 +193,13 @@
       }
 
       .left img.maskot {
+        max-width: 220px
         position: static;
-        margin-top: 2rem;
+        margin-top: 3rem;
+      }
+
+      .right {
+        border-radius: 0;
       }
     }
   </style>
@@ -158,9 +211,7 @@
       <img src="/images/darklogoandfont.png" alt="Wangku" class="logo">
       <h2>Selamat datang !</h2>
       <p>Untuk tetap terhubung dengan kami, silakan login dengan info pribadi Anda</p>
-      <a href="{{ route('signin') }}">
-        <button class="btn-signin">Sign In</button>
-      </a>
+      <a href="{{ route('signin') }}"> <button class="btn-signin">Sign In</button></a>
       <img src="/images/maskot1.png" alt="Maskot" class="maskot" />
     </div>
 
@@ -180,15 +231,15 @@
         @csrf
         <div>
           <label for="username">Username</label>
-          <input id="username" type="text" name="username" placeholder="Masukkan Username" value="{{ old('username') }}" required />
+          <input id="username" type="text" name="username" placeholder="" value="{{ old('username') }}" required />
         </div>
         <div>
           <label for="email">E-mail</label>
-          <input id="email" type="email" name="email" placeholder="Masukkan E-mail" value="{{ old('email') }}" required />
+          <input id="email" type="email" name="email" placeholder="" value="{{ old('email') }}" required />
         </div>
         <div>
           <label for="password">Password</label>
-          <input id="password" type="password" name="password" placeholder="Masukkan Password" required />
+          <input id="password" type="password" name="password" placeholder="" required />
         </div>
         <button type="submit">Sign Up</button>
       </form>
