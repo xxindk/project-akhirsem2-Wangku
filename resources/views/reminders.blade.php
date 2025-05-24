@@ -8,7 +8,7 @@
     }
 
     thead.table-header th {
-        background-color: #F47C46;
+        background-color: #F4A261;
         color: white;
     }
 
@@ -18,13 +18,13 @@
 </style>
 
 <div class="container">
-    {{-- Header & Tambah --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Pengingat Keuangan</h2>
-        <button class="btn" style="background-color: #F47C46; color: white;" data-bs-toggle="modal" data-bs-target="#modalTambah">
-            <i class="bi bi-plus-circle me-1"></i> Tambah
-        </button>
-    </div>
+      {{-- Header & Tambah --}}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Pengingat Keuangan</h2>
+     <button class="btn" style="background-color: #F4A261; color: white;" onclick="openModalTambah()">
+      <i class="bi bi-plus-circle me-1"></i> Tambah
+    </button>
+  </div>
 
     {{-- Flash Message --}}
     @if (session('success'))
@@ -66,81 +66,111 @@
     </table>
 </div>
 
-{{-- Modal Tambah --}}
-<div class="modal fade" id="modalTambah" tabindex="-1">
-  <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="{{ route('reminders.store') }}">
-        @csrf
-        <div class="modal-header">
-            <h5 class="modal-title">Tambah Pengingat Keuangan</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-            <div class="mb-3">
-                <label>Jenis Tagihan</label>
-                <input type="text" name="jenis_tagihan" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Nominal</label>
-                <input type="number" name="nominal" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Jatuh Tempo</label>
-                <input type="date" name="jatuh_tempo" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Status</label>
-                <select name="status" class="form-select" required>
-                    <option value="">-- Pilih --</option>
-                    <option value="Belum Lunas">Belum Lunas</option>
-                    <option value="Lunas">Lunas</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
+{{-- Modal Tambah --}}<!-- Modal Tambah Pengingat Keuangan -->
+<div id="modalTambah" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+  <div style="background:white; margin:100px auto; padding:20px 30px; width:450px; border-radius:10px; font-family:sans-serif; position:relative;">
+    <h3 style="font-weight:600; font-size:18px; margin-bottom:20px;">Tambah Pengingat Keuangan</h3>
+    <form method="POST" action="{{ route('reminders.store') }}">
+      @csrf
+
+      <!-- Jenis Tagihan -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Jenis Tagihan:</label>
+        <input type="text" name="jenis_tagihan"
+               style="flex: 1; border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;" required>
+      </div>
+
+      <!-- Nominal -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Nominal:</label>
+        <input type="number" name="nominal"
+               style="flex: 1; border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;" required>
+      </div>
+
+      <!-- Jatuh Tempo -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Jatuh Tempo:</label>
+        <input type="date" name="jatuh_tempo"
+               style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
+      </div>
+
+      <!-- Status -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Status:</label>
+        <select name="status"
+                style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
+          <option value="">-- Pilih --</option>
+          <option value="Belum Lunas">Belum Lunas</option>
+          <option value="Lunas">Lunas</option>
+        </select>
+      </div>
+
+      <!-- Tombol Simpan -->
+      <div style="text-align:right; margin-top:15px;">
+        <button type="submit"
+                style="background:#F4A261; color:white; border:none; padding:7px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
+      </div>
     </form>
+
+    <!-- Tombol close -->
+    <button onclick="closeModalTambah()" style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:20px; font-weight:bold; cursor:pointer;">×</button>
   </div>
 </div>
 
+<script>
+function openModalTambah() {
+    document.getElementById('modalTambah').style.display = 'block';
+}
+
+function closeModalTambah() {
+    document.getElementById('modalTambah').style.display = 'none';
+}
+</script>
+
+
 {{-- Modal Edit --}}
-<div class="modal fade" id="modalEdit" tabindex="-1">
-  <div class="modal-dialog">
-    <form id="formEdit" class="modal-content" method="POST">
-        @csrf @method('PUT')
-        <div class="modal-header">
-            <h5 class="modal-title">Edit Pengingat Keuangan</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-            <div class="mb-3">
-                <label>Jenis Tagihan</label>
-                <input type="text" name="jenis_tagihan" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Nominal</label>
-                <input type="number" name="nominal" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Jatuh Tempo</label>
-                <input type="date" name="jatuh_tempo" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Status</label>
-                <select name="status" class="form-select" required>
-                    <option value="">-- Pilih --</option>
-                    <option value="Belum Lunas">Belum Lunas</option>
-                    <option value="Lunas">Lunas</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Update</button>
-        </div>
+<div id="modalEditReminder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+  <div style="background:white; margin:100px auto; padding:20px 30px; width:400px; border-radius:10px; font-family:sans-serif; position:relative;">
+    <h3 style="font-weight:600; font-size:18px; margin-bottom:15px;">Edit Pengingat Keuangan</h3>
+    <form id="formEdit" method="POST">
+      @csrf
+      @method('PUT')
+
+      <label>Jenis Tagihan:</label>
+      <input type="text" name="jenis_tagihan" id="editJenisTagihan" 
+             style="border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;" required>
+      <br>
+
+      <label>Nominal:</label>
+      <input type="number" name="nominal" id="editNominal" 
+             style="border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;" required>
+      <br>
+
+      <label>Jatuh Tempo:</label>
+      <input type="date" name="jatuh_tempo" id="editJatuhTempo" 
+             class="w-full border rounded p-2" style="background-color: #f0f0f0; font-weight: 600;" required>
+      <br>
+
+      <label>Status:</label>
+      <select name="status" id="editStatus" class="w-full border rounded p-2" 
+              style="background-color: #f0f0f0; font-weight: 600;" required>
+        <option value="">-- Pilih --</option>
+        <option value="Belum Lunas">Belum Lunas</option>
+        <option value="Lunas">Lunas</option>
+      </select>
+      <br>
+
+      <div style="text-align:right; margin-top:15px;">
+     <button type="submit" style="background:#F4A261; color:white; border:none; padding:7px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
+</button>
+      </div>
     </form>
+
+    <!-- Tombol close -->
+    <button onclick="closeModalReminder()" style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:20px; font-weight:bold; cursor:pointer;">×</button>
   </div>
 </div>
+
 @endsection
 
 @push('scripts')
@@ -149,15 +179,19 @@ function editReminder(id) {
     fetch('/reminders/' + id + '/edit')
         .then(res => res.json())
         .then(data => {
-            document.querySelector('#modalEdit [name=jenis_tagihan]').value = data.jenis_tagihan;
-            document.querySelector('#modalEdit [name=nominal]').value = data.nominal ?? '';
-            document.querySelector('#modalEdit [name=jatuh_tempo]').value = data.jatuh_tempo;
-            document.querySelector('#modalEdit [name=status]').value = data.status;
+            document.getElementById('editJenisTagihan').value = data.jenis_tagihan;
+            document.getElementById('editNominal').value = data.nominal ?? '';
+            document.getElementById('editJatuhTempo').value = data.jatuh_tempo;
+            document.getElementById('editStatus').value = data.status;
 
             document.getElementById('formEdit').action = '/reminders/' + id;
-            new bootstrap.Modal(document.getElementById('modalEdit')).show();
+            document.getElementById('modalEditReminder').style.display = 'block';
         });
+}
+
+function closeModalReminder() {
+    document.getElementById('modalEditReminder').style.display = 'none';
 }
 </script>
 @endpush
- 
+
