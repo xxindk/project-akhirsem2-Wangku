@@ -5,9 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Kategori;
-use App\Charts\PemasukanChart;
-use App\Charts\PengeluaranChart;
-use ArielMejiaDev\LarapexCharts\LarapexChart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class JournalController extends Controller
@@ -166,51 +164,59 @@ class JournalController extends Controller
         return redirect()->route('journal')->with('success', 'Pengeluaran berhasil diperbarui');
     }
 
-public function index(PemasukanChart $pemasukanChart, PengeluaranChart $pengeluaranChart)
+public function index()
 {
     $kategoriPemasukan = Kategori::where('jenis', 'pemasukan')->get();
     $kategoriPengeluaran = Kategori::where('jenis', 'pengeluaran')->get();
 
     // Ambil data pemasukan per kategori
-    $dataPemasukan = Pemasukan::with('kategori')
-        ->selectRaw('kategori_id, SUM(nominal) as total')
-        ->groupBy('kategori_id')
+    $pemasukan = DB::table('pemasukans')
+        ->join('kategoris', 'pemasukans.kategori_id', '=', 'kategoris.id')
+        ->select('kategoris.nama as kategori', DB::raw('SUM(pemasukans.nominal) as total'))
+        ->groupBy('pemasukans.kategori_id', 'kategoris.nama')
         ->get();
 
-    $labelsPemasukan = $dataPemasukan->pluck('kategori.nama')->toArray();
-    $valuesPemasukan = $dataPemasukan->pluck('total')->toArray();
+    $chartPemasukanData = [
+        'labels' => $pemasukan->pluck('kategori'),
+        'data' => $pemasukan->pluck('total'),
+    ];
 
-    // Buat chart pemasukan
-    $chartPemasukan = (new LarapexChart)->pieChart()
-        ->setTitle('Pemasukan Berdasarkan Kategori')
-        ->setLabels($labelsPemasukan)
-        ->addData($valuesPemasukan);
+    $labelsPemasukan = $pemasukan->pluck('kategori')->toArray();
+    $valuesPemasukan = $pemasukan->pluck('total')->toArray();
 
     // Ambil data pengeluaran per kategori
-    $dataPengeluaran = Pengeluaran::with('kategori')
-        ->selectRaw('kategori_id, SUM(nominal) as total')
-        ->groupBy('kategori_id')
+    $pengeluaran = DB::table('pengeluarans')
+        ->join('kategoris', 'pengeluarans.kategori_id', '=', 'kategoris.id')
+        ->select('kategoris.nama as kategori', DB::raw('SUM(pengeluarans.nominal) as total'))
+        ->groupBy('pengeluarans.kategori_id', 'kategoris.nama')
         ->get();
 
-    $labelsPengeluaran = $dataPengeluaran->pluck('kategori.nama')->toArray();
-    $valuesPengeluaran = $dataPengeluaran->pluck('total')->toArray();
+    $chartPengeluaranData = [
+        'labels' => $pengeluaran->pluck('kategori'),
+        'data' => $pengeluaran->pluck('total'),
+    ];
 
-    // Buat chart pengeluaran
-    $chartPengeluaran = (new LarapexChart)->pieChart()
-        ->setTitle('Pengeluaran Berdasarkan Kategori')
-        ->setLabels($labelsPengeluaran)
-        ->addData($valuesPengeluaran);
+    $labelsPengeluaran = $pengeluaran->pluck('kategori')->toArray();
+    $valuesPengeluaran = $pengeluaran->pluck('total')->toArray();
+    
+    $totalPemasukan = array_sum($valuesPemasukan);
+    $totalPengeluaran = array_sum($valuesPengeluaran);
 
     return view('journal', [
-        'chartPemasukan' => $chartPemasukan,
-        'chartPengeluaran' => $chartPengeluaran,
+        'chartPemasukanData' => $chartPemasukanData,
+        'chartPengeluaranData' => $chartPengeluaranData,
+        'labelsPemasukan' => $labelsPemasukan,
+        'valuesPemasukan' => $valuesPemasukan,
+        'labelsPengeluaran' => $labelsPengeluaran,
+        'valuesPengeluaran' => $valuesPengeluaran,
         'kategoriPemasukan' => $kategoriPemasukan,
         'kategoriPengeluaran' => $kategoriPengeluaran,
         'pemasukans' => Pemasukan::with('kategori')->get(),
         'pengeluarans' => Pengeluaran::with('kategori')->get(),
+        'totalPemasukan' => $totalPemasukan,
+        'totalPengeluaran' => $totalPengeluaran,
     ]);
 }
-
 
 
 }
