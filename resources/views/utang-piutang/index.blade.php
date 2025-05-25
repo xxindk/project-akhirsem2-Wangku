@@ -84,7 +84,7 @@
       <!-- Jenis  -->
       <div style="display: flex; align-items: center; margin-bottom: 10px;">
         <label style="width: 120px;">Jenis:</label>
-        <select name="jenis_tagihan"
+        <select name="jenis"
           style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
        <option value="">-- Pilih --</option>
        <option value="Utang">Utang</option>
