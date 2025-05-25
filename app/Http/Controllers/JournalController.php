@@ -70,11 +70,14 @@ class JournalController extends Controller
             ? $request->file('foto')->store('pemasukan_fotos', 'public')
             : null;
 
-        Pemasukan::create([
-            ...$validated,
-            'foto' => $fotoPath,
-            'user_id' => Auth::id(),
-        ]);
+       Pemasukan::create([
+    'user_id' => auth()->id(), // ✅ tambahkan ini
+    'nama' => $request->nama,
+    'kategori_id' => $request->kategori_id,
+    'nominal' => $request->nominal,
+    'tanggal' => $request->tanggal,
+    'foto' => $fotoPath,
+]);
 
         return redirect()->route('journal')->with('success', 'Data pemasukan berhasil disimpan');
     }
@@ -94,10 +97,14 @@ class JournalController extends Controller
             : null;
 
         Pengeluaran::create([
-            ...$validated,
-            'foto' => $fotoPath,
-            'user_id' => Auth::id(),
-        ]);
+    'user_id' => auth()->id(), // ✅ tambahkan ini juga
+    'nama' => $request->nama,
+    'kategori_id' => $request->kategori_id,
+    'nominal' => $request->nominal,
+    'tanggal' => $request->tanggal,
+    'foto' => $fotoPath,
+]);
+
 
         return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil disimpan');
     }
