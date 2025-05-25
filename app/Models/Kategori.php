@@ -18,5 +18,6 @@ public function pengeluaran()
 {
     return $this->hasMany(Pengeluaran::class);
 }
+
 }
 

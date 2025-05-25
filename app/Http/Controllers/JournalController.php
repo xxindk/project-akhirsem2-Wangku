@@ -1,20 +1,59 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class JournalController extends Controller
 {
+    public function index()
+    {
+        $kategoriPemasukan = Kategori::where('jenis', 'pemasukan')->get();
+        $kategoriPengeluaran = Kategori::where('jenis', 'pengeluaran')->get();
 
+        $pemasukan = DB::table('pemasukans')
+            ->join('kategoris', 'pemasukans.kategori_id', '=', 'kategoris.id')
+            ->select('kategoris.nama as kategori', DB::raw('SUM(pemasukans.nominal) as total'))
+            ->groupBy('pemasukans.kategori_id', 'kategoris.nama')
+            ->get();
+
+        $pengeluaran = DB::table('pengeluarans')
+            ->join('kategoris', 'pengeluarans.kategori_id', '=', 'kategoris.id')
+            ->select('kategoris.nama as kategori', DB::raw('SUM(pengeluarans.nominal) as total'))
+            ->groupBy('pengeluarans.kategori_id', 'kategoris.nama')
+            ->get();
+
+        return view('journal', [
+            'chartPemasukanData' => [
+                'labels' => $pemasukan->pluck('kategori'),
+                'data' => $pemasukan->pluck('total'),
+            ],
+            'chartPengeluaranData' => [
+                'labels' => $pengeluaran->pluck('kategori'),
+                'data' => $pengeluaran->pluck('total'),
+            ],
+            'labelsPemasukan' => $pemasukan->pluck('kategori')->toArray(),
+            'valuesPemasukan' => $pemasukan->pluck('total')->toArray(),
+            'labelsPengeluaran' => $pengeluaran->pluck('kategori')->toArray(),
+            'valuesPengeluaran' => $pengeluaran->pluck('total')->toArray(),
+            'kategoriPemasukan' => $kategoriPemasukan,
+            'kategoriPengeluaran' => $kategoriPengeluaran,
+            'pemasukans' => Pemasukan::with('kategori')->get(),
+            'pengeluarans' => Pengeluaran::with('kategori')->get(),
+            'totalPemasukan' => $pemasukan->sum('total'),
+            'totalPengeluaran' => $pengeluaran->sum('total'),
+        ]);
+    }
 
     public function storePemasukan(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|integer',
             'nominal' => 'required|numeric',
@@ -22,17 +61,14 @@ class JournalController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('pemasukan_fotos', 'public');
-        }
+        $fotoPath = $request->hasFile('foto') 
+            ? $request->file('foto')->store('pemasukan_fotos', 'public')
+            : null;
 
         Pemasukan::create([
-            'nama' => $request->nama,
-            'kategori_id' => $request->kategori_id,
-            'nominal' => $request->nominal,
-            'tanggal' => $request->tanggal,
+            ...$validated,
             'foto' => $fotoPath,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('journal')->with('success', 'Data pemasukan berhasil disimpan');
@@ -40,7 +76,7 @@ class JournalController extends Controller
 
     public function storePengeluaran(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|integer',
             'nominal' => 'required|numeric',
@@ -48,17 +84,14 @@ class JournalController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('pengeluaran_fotos', 'public');
-        }
+        $fotoPath = $request->hasFile('foto') 
+            ? $request->file('foto')->store('pengeluaran_fotos', 'public')
+            : null;
 
         Pengeluaran::create([
-            'nama' => $request->nama,
-            'kategori_id' => $request->kategori_id,
-            'nominal' => $request->nominal,
-            'tanggal' => $request->tanggal,
+            ...$validated,
             'foto' => $fotoPath,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil disimpan');
@@ -67,11 +100,9 @@ class JournalController extends Controller
     public function destroyPemasukan($id)
     {
         $pemasukan = Pemasukan::findOrFail($id);
-
         if ($pemasukan->foto) {
             Storage::disk('public')->delete($pemasukan->foto);
         }
-
         $pemasukan->delete();
 
         return redirect()->route('journal')->with('success', 'Data pemasukan berhasil dihapus');
@@ -80,11 +111,9 @@ class JournalController extends Controller
     public function destroyPengeluaran($id)
     {
         $pengeluaran = Pengeluaran::findOrFail($id);
-
         if ($pengeluaran->foto) {
             Storage::disk('public')->delete($pengeluaran->foto);
         }
-
         $pengeluaran->delete();
 
         return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil dihapus');
@@ -99,7 +128,7 @@ class JournalController extends Controller
 
     public function updatePemasukan(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|integer',
             'nominal' => 'required|numeric',
@@ -117,10 +146,7 @@ class JournalController extends Controller
         }
 
         $pemasukan->update([
-            'nama' => $request->nama,
-            'kategori_id' => $request->kategori_id,
-            'nominal' => $request->nominal,
-            'tanggal' => $request->tanggal,
+            ...$validated,
             'foto' => $pemasukan->foto,
         ]);
 
@@ -136,7 +162,7 @@ class JournalController extends Controller
 
     public function updatePengeluaran(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'kategori_id' => 'required|integer',
             'nominal' => 'required|numeric',
@@ -154,69 +180,10 @@ class JournalController extends Controller
         }
 
         $pengeluaran->update([
-            'nama' => $request->nama,
-            'kategori_id' => $request->kategori_id,
-            'nominal' => $request->nominal,
-            'tanggal' => $request->tanggal,
+            ...$validated,
             'foto' => $pengeluaran->foto,
         ]);
 
         return redirect()->route('journal')->with('success', 'Pengeluaran berhasil diperbarui');
     }
-
-public function index()
-{
-    $kategoriPemasukan = Kategori::where('jenis', 'pemasukan')->get();
-    $kategoriPengeluaran = Kategori::where('jenis', 'pengeluaran')->get();
-
-    // Ambil data pemasukan per kategori
-    $pemasukan = DB::table('pemasukans')
-        ->join('kategoris', 'pemasukans.kategori_id', '=', 'kategoris.id')
-        ->select('kategoris.nama as kategori', DB::raw('SUM(pemasukans.nominal) as total'))
-        ->groupBy('pemasukans.kategori_id', 'kategoris.nama')
-        ->get();
-
-    $chartPemasukanData = [
-        'labels' => $pemasukan->pluck('kategori'),
-        'data' => $pemasukan->pluck('total'),
-    ];
-
-    $labelsPemasukan = $pemasukan->pluck('kategori')->toArray();
-    $valuesPemasukan = $pemasukan->pluck('total')->toArray();
-
-    // Ambil data pengeluaran per kategori
-    $pengeluaran = DB::table('pengeluarans')
-        ->join('kategoris', 'pengeluarans.kategori_id', '=', 'kategoris.id')
-        ->select('kategoris.nama as kategori', DB::raw('SUM(pengeluarans.nominal) as total'))
-        ->groupBy('pengeluarans.kategori_id', 'kategoris.nama')
-        ->get();
-
-    $chartPengeluaranData = [
-        'labels' => $pengeluaran->pluck('kategori'),
-        'data' => $pengeluaran->pluck('total'),
-    ];
-
-    $labelsPengeluaran = $pengeluaran->pluck('kategori')->toArray();
-    $valuesPengeluaran = $pengeluaran->pluck('total')->toArray();
-    
-    $totalPemasukan = array_sum($valuesPemasukan);
-    $totalPengeluaran = array_sum($valuesPengeluaran);
-
-    return view('journal', [
-        'chartPemasukanData' => $chartPemasukanData,
-        'chartPengeluaranData' => $chartPengeluaranData,
-        'labelsPemasukan' => $labelsPemasukan,
-        'valuesPemasukan' => $valuesPemasukan,
-        'labelsPengeluaran' => $labelsPengeluaran,
-        'valuesPengeluaran' => $valuesPengeluaran,
-        'kategoriPemasukan' => $kategoriPemasukan,
-        'kategoriPengeluaran' => $kategoriPengeluaran,
-        'pemasukans' => Pemasukan::with('kategori')->get(),
-        'pengeluarans' => Pengeluaran::with('kategori')->get(),
-        'totalPemasukan' => $totalPemasukan,
-        'totalPengeluaran' => $totalPengeluaran,
-    ]);
-}
-
-
 }

@@ -54,7 +54,7 @@
             </a>
 
             {{-- Hello User --}}
-            <span class="fw-semibold me-3 text-white">Hello, User!</span>
+            <span class="fw-semibold me-3 text-white">Hello, {{ Auth::user()->name }}!</span>
 
             {{-- Akun Dropdown --}}
             <div class="dropdown">

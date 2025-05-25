@@ -80,6 +80,22 @@ Route::middleware('auth')->group(function () {
 Route::get('/target', [TargetController::class, 'index'])->name('target.index');
 Route::post('/target', [TargetController::class, 'store'])->name('target.store');
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('pemasukan', PemasukanController::class);
+    Route::resource('pengeluaran', PengeluaranController::class);
+    Route::resource('reminder', ReminderController::class);
+    Route::resource('target', TargetController::class);
+    Route::resource('transaksi_utang_piutang', TransaksiUtangPiutangController::class);
+     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+});
+
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login');
+})->name('logout');
 
 
 });

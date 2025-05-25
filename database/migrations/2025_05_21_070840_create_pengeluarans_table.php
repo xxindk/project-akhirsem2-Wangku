@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('pengeluarans', function (Blueprint $table) {
             $table->id();
     $table->string('nama');
+      $table->unsignedBigInteger('user_id');
     $table->foreignId('kategori_id')->constrained('kategoris');
     $table->integer('nominal');
     $table->date('tanggal');
     $table->string('foto')->nullable();
     $table->timestamps();
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -42,7 +42,7 @@
             </a>
 
             {{-- Hello User --}}
-            <span class="fw-semibold me-3 text-dark">Hello, User!</span>
+            <span class="fw-semibold me-3 text-dark">Hello, {{ Auth::user()->name }}!</span>
 
             {{-- Akun Dropdown --}}
             <div class="dropdown">

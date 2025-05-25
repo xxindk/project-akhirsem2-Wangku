@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengeluaran;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengeluaranController extends Controller
 {
@@ -12,7 +14,8 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
-        //
+        $pengeluarans = Pengeluaran::where('user_id', Auth::id())->get();
+        return view('journal', compact('pengeluarans'));
     }
 
     /**
@@ -20,7 +23,8 @@ class PengeluaranController extends Controller
      */
     public function create()
     {
-        //
+        $kategoris = Kategori::where('jenis', 'pengeluaran')->get();
+        return view('create_pengeluaran', compact('kategoris'));
     }
 
     /**
@@ -28,57 +32,62 @@ class PengeluaranController extends Controller
      */
     public function store(Request $request)
     {
-       $data = $request->validate([
-    'nama' => 'required',
-    'kategori_id' => 'required',
-    'nominal' => 'required|integer',
-    'tanggal' => 'required|date',
-    'foto' => 'nullable|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-]);
-$fotoPath = null;
-if ($request->hasFile('foto')) {
-    $data['foto'] = $request->file('foto')->store('pengeluaran_foto', 'public');
-}
+        $data = $request->validate([
+            'nama' => 'required',
+            'kategori_id' => 'required',
+            'nominal' => 'required|integer',
+            'tanggal' => 'required|date',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-Pengeluaran::create($data);
-return redirect()->route('home')->with('success', 'Data pengeluaran berhasil ditambahkan');
-    }
+        $data['user_id'] = Auth::id();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pengeluaran $pengeluaran)
-    {
-        //
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('pengeluaran_foto', 'public');
+        }
+
+        Pengeluaran::create($data);
+
+        return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil ditambahkan');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Pengeluaran $pengeluaran)
-{
-    $kategoris = Kategori::where('jenis', 'pengeluaran')->get();
-    return view('edit_pengeluaran', compact('pengeluaran', 'kategoris'));
-}
+    {
+        if ($pengeluaran->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $kategoris = Kategori::where('jenis', 'pengeluaran')->get();
+        return view('edit_pengeluaran', compact('pengeluaran', 'kategoris'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Pengeluaran $pengeluaran)
     {
+        if ($pengeluaran->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $data = $request->validate([
-        'nama' => 'required',
-        'kategori_id' => 'required',
-        'nominal' => 'required|integer',
-        'tanggal' => 'required|date',
-         'foto' => 'nullable|image|max:2048',
+            'nama' => 'required',
+            'kategori_id' => 'required',
+            'nominal' => 'required|integer',
+            'tanggal' => 'required|date',
+            'foto' => 'nullable|image|max:2048',
         ]);
+
         if ($request->hasFile('foto')) {
-        $validatedData['foto'] = $request->file('foto')->store('pengeluaran_foto', 'public');
-    }
+            $data['foto'] = $request->file('foto')->store('pengeluaran_foto', 'public');
+        }
+
         $pengeluaran->update($data);
 
-    return redirect()->route('home')->with('success', 'Data pengeluaran berhasil ditambahkan');
+        return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil diperbarui');
     }
 
     /**
@@ -86,7 +95,11 @@ return redirect()->route('home')->with('success', 'Data pengeluaran berhasil dit
      */
     public function destroy(Pengeluaran $pengeluaran)
     {
-                    $pengeluaran->delete();
-    return redirect()->route('journal');
+        if ($pengeluaran->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $pengeluaran->delete();
+        return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil dihapus');
     }
 }

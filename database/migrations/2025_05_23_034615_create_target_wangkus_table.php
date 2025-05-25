@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('target_wangkus', function (Blueprint $table) {
             $table->id();
+              $table->unsignedBigInteger('user_id');
             $table->string('nama_target');
             $table->unsignedBigInteger('jumlah_target');
             $table->unsignedBigInteger('jumlah_terkumpul')->default(0);
             $table->string('gambar')->nullable(); // URL atau path gambar
             $table->text('catatan')->nullable(); // opsional catatan
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
