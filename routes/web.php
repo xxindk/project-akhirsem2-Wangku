@@ -88,6 +88,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('target', TargetController::class);
     Route::resource('transaksi_utang_piutang', TransaksiUtangPiutangController::class);
      Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+         Route::get('/keuangan-bulanan', [KeuanganBulananController::class, 'index'])->name('keuangan.bulanan');
+
 });
 
 

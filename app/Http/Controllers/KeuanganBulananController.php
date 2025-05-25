@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use Illuminate\Support\Facades\Auth;
 
 class KeuanganBulananController extends Controller
 {
@@ -28,12 +29,17 @@ class KeuanganBulananController extends Controller
             abort(400, 'Bulan tidak valid.');
         }
 
-        // Ambil total dari database sesuai bulan & tahun
-        $totalPemasukan = Pemasukan::whereMonth('tanggal', $bulan)
+        // Ambil user yang sedang login
+        $userId = Auth::id();
+
+        // Ambil total dari database sesuai bulan, tahun, dan user
+        $totalPemasukan = Pemasukan::where('user_id', $userId)
+            ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
             ->sum('nominal');
 
-        $totalPengeluaran = Pengeluaran::whereMonth('tanggal', $bulan)
+        $totalPengeluaran = Pengeluaran::where('user_id', $userId)
+            ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
             ->sum('nominal');
 
