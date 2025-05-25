@@ -48,8 +48,9 @@ class JournalController extends Controller
             'valuesPengeluaran' => $pengeluaran->pluck('total')->toArray(),
             'kategoriPemasukan' => $kategoriPemasukan,
             'kategoriPengeluaran' => $kategoriPengeluaran,
-            'pemasukans' => Pemasukan::with('kategori')->get(),
-            'pengeluarans' => Pengeluaran::with('kategori')->get(),
+'pemasukans' => Pemasukan::with('kategori')->where('user_id', Auth::id())->get(),
+'pengeluarans' => Pengeluaran::with('kategori')->where('user_id', Auth::id())->get(),
+
             'totalPemasukan' => $pemasukan->sum('total'),
             'totalPengeluaran' => $pengeluaran->sum('total'),
         ]);
