@@ -60,8 +60,8 @@ Route::middleware('auth')->group(function () {
 
     // Transaksi Utang Piutang
     Route::get('/transaksi-utang-piutangs', [TransaksiUtangPiutangController::class, 'index'])->name('utang-piutang.index');
-    Route::post('/transaksi-utang-piutangs', [TransaksiUtangPiutangController::class, 'store']);
-    Route::get('/transaksi-utang-piutangs/{id}/edit', [TransaksiUtangPiutangController::class, 'edit'])->name('store');
+    Route::post('/transaksi-utang-piutangs', [TransaksiUtangPiutangController::class, 'store']);->name('store');
+    Route::get('/transaksi-utang-piutangs/{id}/edit', [TransaksiUtangPiutangController::class, 'edit'])
     Route::put('/transaksi-utang-piutangs/{id}', [TransaksiUtangPiutangController::class, 'update']);
     Route::delete('/transaksi-utang-piutangs/{id}', [TransaksiUtangPiutangController::class, 'destroy']);
 
