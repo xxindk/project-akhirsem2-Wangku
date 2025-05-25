@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/target', [TargetController::class, 'index'])->name('target.index');
+Route::post('/target', [TargetController::class, 'store'])->name('target.store');
+
 
 
 });

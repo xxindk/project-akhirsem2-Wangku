@@ -74,7 +74,7 @@
                     </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center text-danger" 
-                        class="text-danger" href="{{ route('logout') }}">Logout</a>
+                        class="text-danger" href="{{ route('welcome') }}">Logout</a>
 
                         </a>
                     </li>
@@ -93,7 +93,7 @@
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('reminders.index') }}">Pengingat Keuangan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('utang-piutang.index') }}">Catatan Utang-Piutang</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route ('keuangan.bulanan') }}">Jurnal Keuangan Bulanan</a></li>
-                    <li><a class="dropdown-item py-2 fw-semibold" href="#">Target Wangku</a></li>
+                    <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('target.index') }}">Target Wangku</a></li>
                 </ul>
             </div>
         </nav>
