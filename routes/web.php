@@ -81,6 +81,7 @@ Route::get('/target', [TargetController::class, 'index'])->name('target.index');
 Route::post('/target', [TargetController::class, 'store'])->name('target.store');
 
 Route::middleware(['auth'])->group(function () {
+     Route::get('/journal', [JournalController::class, 'index'])->name('journal');
     Route::resource('pemasukan', PemasukanController::class);
     Route::resource('pengeluaran', PengeluaranController::class);
     Route::resource('reminder', ReminderController::class);

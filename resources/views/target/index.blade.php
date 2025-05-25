@@ -12,7 +12,7 @@
         <div class="text-end mb-3">
             <button type="button" onclick="openModal()" class="btn text-white fw-semibold" style="background:#F4A261;">
                 <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-plus-lg"></i>
+                    <i class="bi bi-plus-circle me-1"></i>
                     <span>Tambah</span>
                 </div>
             </button>

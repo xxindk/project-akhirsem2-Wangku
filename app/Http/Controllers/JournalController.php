@@ -17,14 +17,18 @@ class JournalController extends Controller
         $kategoriPemasukan = Kategori::where('jenis', 'pemasukan')->get();
         $kategoriPengeluaran = Kategori::where('jenis', 'pengeluaran')->get();
 
-        $pemasukan = DB::table('pemasukans')
-            ->join('kategoris', 'pemasukans.kategori_id', '=', 'kategoris.id')
-            ->select('kategoris.nama as kategori', DB::raw('SUM(pemasukans.nominal) as total'))
-            ->groupBy('pemasukans.kategori_id', 'kategoris.nama')
-            ->get();
+     $pemasukan = DB::table('pemasukans')
+    ->join('kategoris', 'pemasukans.kategori_id', '=', 'kategoris.id')
+    ->where('pemasukans.user_id', Auth::id())
+    ->select('kategoris.nama as kategori', DB::raw('SUM(pemasukans.nominal) as total'))
+    ->groupBy('pemasukans.kategori_id', 'kategoris.nama')
+    ->get();
+
+
 
         $pengeluaran = DB::table('pengeluarans')
             ->join('kategoris', 'pengeluarans.kategori_id', '=', 'kategoris.id')
+             ->where('pengeluarans.user_id', Auth::id())
             ->select('kategoris.nama as kategori', DB::raw('SUM(pengeluarans.nominal) as total'))
             ->groupBy('pengeluarans.kategori_id', 'kategoris.nama')
             ->get();
@@ -106,6 +110,10 @@ class JournalController extends Controller
         $pemasukan->delete();
 
         return redirect()->route('journal')->with('success', 'Data pemasukan berhasil dihapus');
+        if ($pemasukan->user_id !== Auth::id()) {
+    abort(403);
+}
+
     }
 
     public function destroyPengeluaran($id)
@@ -117,6 +125,10 @@ class JournalController extends Controller
         $pengeluaran->delete();
 
         return redirect()->route('journal')->with('success', 'Data pengeluaran berhasil dihapus');
+        if ($pemasukan->user_id !== Auth::id()) {
+    abort(403);
+}
+
     }
 
     public function editPemasukan($id)
