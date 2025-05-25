@@ -52,7 +52,7 @@
   </style>
 
   <div class="container py-4">
-    <h2>Keuangan Bulanan</h2>
+<h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Jurnal Keuangan Bulanan</h2>       
 
     <div class="filter">
       <form method="GET" action="{{ route('keuangan.bulanan') }}" id="filterForm" style="display: flex; gap: 1rem;">
@@ -89,7 +89,7 @@
       </tbody>
     </table>
 
-    <h2>Grafik Keuangan Bulanan</h2>
+<h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Grafik Keuangan Bulanan</h2>       
 
     <div class="chart-container">
       <canvas id="chart"></canvas>
