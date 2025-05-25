@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
 
     // Jurnal Keuangan
     Route::get('/journal', [JournalController::class, 'index'])->name('journal');
+
+
+    // Simpan data
     Route::post('/pemasukans/store', [JournalController::class, 'storePemasukan']);
     Route::post('/pengeluarans/store', [JournalController::class, 'storePengeluaran']);
     Route::delete('/pemasukans/{id}', [JournalController::class, 'destroyPemasukan']);
@@ -79,6 +82,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/target', [TargetController::class, 'index'])->name('target.index');
 Route::post('/target', [TargetController::class, 'store'])->name('target.store');
+Route::get('/target/{id}/edit', [TargetController::class, 'edit'])->name('target.edit');
+Route::put('/target/{id}', [TargetController::class, 'update'])->name('target.update');
+Route::delete('/target/{id}', [TargetController::class, 'destroy'])->name('target.destroy');
+
+
 
 Route::middleware(['auth'])->group(function () {
      Route::get('/journal', [JournalController::class, 'index'])->name('journal');

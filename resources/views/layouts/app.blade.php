@@ -11,7 +11,6 @@
     {{-- Bootstrap CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
         body {
@@ -19,23 +18,23 @@
         }
 
         .btn-white:hover {
-    background-color: #e9e9e9 !important;
-    border-color: #e9e9e9;
-}
+            background-color: #e9e9e9 !important;
+            border-color: #e9e9e9;
+        }
 
-.btn-white:active,
-.btn-white.show {
-    background-color: #f0f0f0 !important;
-    border-color: #f0f0f0 !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
+        .btn-white:active,
+        .btn-white.show {
+            background-color: #f0f0f0 !important;
+            border-color: #f0f0f0 !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
     </style>
 </head>
 <body class="p-0 m-0 bg-white">
 
     <div class="container-fluid p-0">
-<nav class="d-flex align-items-center px-3 py-2 sticky-top" style="background: transparent;">
+        <nav class="d-flex align-items-center px-3 py-2 sticky-top" style="background: transparent;">
             {{-- Logo --}}
             <a href="#" class="me-auto">
                 <img src="{{ asset('images/darklogoandfont.png') }}" alt="logo" style="max-height: 40px;">
@@ -70,8 +69,8 @@
             </div>
 
             {{-- Menu Dropdown --}}
-            <div class="dropdown ms-2 ">
-                <a class="btn btn-white d-flex align-items-center p-2 " href="#" role="button" data-bs-toggle="dropdown">
+            <div class="dropdown ms-2">
+                <a class="btn btn-white d-flex align-items-center p-2" href="#" role="button" data-bs-toggle="dropdown">
                     <i class="bi bi-list fs-5"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
@@ -88,16 +87,13 @@
 
     <main class="container mt-3">
         @yield('content')
-        
     </main>
+
     {{-- Footer --}}
-<footer class="bg-white  ">
-
-    {{-- Elemen Gambar Hiasan --}}
-  <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer"
-         class="w-100 mt-5" style="max-height: 150px; object-fit: cover;">
-</footer>
-
+    <footer class="bg-white">
+        <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer"
+             class="w-100 mt-5" style="max-height: 150px; object-fit: cover;">
+    </footer>
 
     {{-- Bootstrap Scripts --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
