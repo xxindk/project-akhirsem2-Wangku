@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\TargetWangku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TargetController extends Controller
 {
     public function index()
     {
-        $targets = TargetWangku::all();
+        $targets = TargetWangku::where('user_id', Auth::id())->get();
         return view('target.index', compact('targets'));
     }
 
@@ -20,7 +22,7 @@ class TargetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'target' => 'required|numeric',
             'jumlah_terkumpul' => 'required|numeric|min:0',
@@ -33,9 +35,10 @@ class TargetController extends Controller
         }
 
         TargetWangku::create([
-            'nama_target' => $request->nama,
-            'jumlah_target' => $request->target,
-            'jumlah_terkumpul' => $request->jumlah_terkumpul,
+            'user_id' => Auth::id(),
+            'nama_target' => $validated['nama'],
+            'jumlah_target' => $validated['target'],
+            'jumlah_terkumpul' => $validated['jumlah_terkumpul'],
             'gambar' => $gambarPath,
         ]);
 
@@ -44,30 +47,35 @@ class TargetController extends Controller
 
     public function edit($id)
     {
-        $target = TargetWangku::findOrFail($id);
+        $target = TargetWangku::where('user_id', Auth::id())->findOrFail($id);
         return view('target.edit', compact('target'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'target' => 'required|numeric',
             'jumlah_terkumpul' => 'required|numeric|min:0',
             'gambar' => 'nullable|image|max:2048',
         ]);
 
-        $target = TargetWangku::findOrFail($id);
+        $target = TargetWangku::where('user_id', Auth::id())->findOrFail($id);
 
-        $gambarPath = $target->gambar;
         if ($request->hasFile('gambar')) {
+            // Opsional: hapus gambar lama jika perlu
+            if ($target->gambar && Storage::disk('public')->exists($target->gambar)) {
+                Storage::disk('public')->delete($target->gambar);
+            }
             $gambarPath = $request->file('gambar')->store('targets', 'public');
+        } else {
+            $gambarPath = $target->gambar;
         }
 
         $target->update([
-            'nama_target' => $request->nama,
-            'jumlah_target' => $request->target,
-            'jumlah_terkumpul' => $request->jumlah_terkumpul,
+            'nama_target' => $validated['nama'],
+            'jumlah_target' => $validated['target'],
+            'jumlah_terkumpul' => $validated['jumlah_terkumpul'],
             'gambar' => $gambarPath,
         ]);
 
@@ -76,7 +84,13 @@ class TargetController extends Controller
 
     public function destroy($id)
     {
-        $target = TargetWangku::findOrFail($id);
+        $target = TargetWangku::where('user_id', Auth::id())->findOrFail($id);
+
+        // Opsional: hapus gambar jika ada
+        if ($target->gambar && Storage::disk('public')->exists($target->gambar)) {
+            Storage::disk('public')->delete($target->gambar);
+        }
+
         $target->delete();
 
         return redirect()->back()->with('success', 'Target berhasil dihapus.');

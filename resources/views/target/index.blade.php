@@ -4,15 +4,12 @@
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold text-white">Target Wangku</h2>
-<<<<<<< HEAD
-        
-=======
->>>>>>> 5c365eb (Simpan perubahan lokal sebelum pull)
+
         {{-- Tombol modal versi dengan ikon dan styling tambahan --}}
         <div class="text-end mb-3">
             <button type="button" onclick="openModal()" class="btn text-white fw-semibold" style="background:#F4A261;">
                 <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-plus-lg"></i>
+                    <i class="bi bi-plus-circle me-1"></i>
                     <span>Tambah</span>
                 </div>
             </button>

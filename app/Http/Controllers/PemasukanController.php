@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemasukan;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PemasukanController extends Controller
 {
@@ -12,7 +14,8 @@ class PemasukanController extends Controller
      */
     public function index()
     {
-        //
+        $pemasukans = Pemasukan::where('user_id', Auth::id())->get();
+        return view('journal', compact('pemasukans'));
     }
 
     /**
@@ -20,7 +23,8 @@ class PemasukanController extends Controller
      */
     public function create()
     {
-        //
+        $kategoris = Kategori::where('jenis', 'pemasukan')->get();
+        return view('create_pemasukan', compact('kategoris'));
     }
 
     /**
@@ -29,54 +33,69 @@ class PemasukanController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-    'nama' => 'required',
-    'kategori_id' => 'required',
-    'nominal' => 'required|integer',
-    'tanggal' => 'required|date',
-    'foto' => 'nullable|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-]);
-$fotoPath = null;
-if ($request->hasFile('foto')) {
-    $data['foto'] = $request->file('foto')->store('pemasukan_foto', 'public');
-}
+            'nama' => 'required',
+            'kategori_id' => 'required',
+            'nominal' => 'required|integer',
+            'tanggal' => 'required|date',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-Pemasukan::create($data);
+        $data['user_id'] = Auth::id();
 
-    return redirect()->route('home')->with('success', 'Data pemasukan berhasil ditambahkan');
-    }
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('pemasukan_foto', 'public');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pemasukan $pemasukan)
-    {
-        //
+        Pemasukan::create($data);
+
+        return redirect()->route('journal')->with('success', 'Data pemasukan berhasil ditambahkan');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-   public function edit(Pemasukan $pemasukan)
-{
-    $kategoris = Kategori::where('jenis', 'pemasukan')->get();
-    return view('edit_pemasukan', compact('pemasukan', 'kategoris'));
-}
+    public function edit(Pemasukan $pemasukan)
+    {
+        if ($pemasukan->user_id !== Auth::id()) {
+            abort(403);
+        }
 
-public function update(Request $request, Pemasukan $pemasukan)
-{
-    $data = $request->validate([
-        'nama' => 'required',
-        'kategori_id' => 'required',
-        'nominal' => 'required|integer',
-        'tanggal' => 'required|date',
-    ]);
-    $pemasukan->update($data); // pakai objek, bukan findOrFail($id)
-    return redirect()->route('journal');
-}
+        $kategoris = Kategori::where('jenis', 'pemasukan')->get();
+        return view('edit_pemasukan', compact('pemasukan', 'kategoris'));
+    }
 
-public function destroy(Pemasukan $pemasukan)
-{
-    $pemasukan->delete(); // pakai objek
-    return redirect()->route('journal');
-}
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Pemasukan $pemasukan)
+    {
+        if ($pemasukan->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'nama' => 'required',
+            'kategori_id' => 'required',
+            'nominal' => 'required|integer',
+            'tanggal' => 'required|date',
+        ]);
+
+        $pemasukan->update($data);
+
+        return redirect()->route('journal')->with('success', 'Data pemasukan berhasil diperbarui');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Pemasukan $pemasukan)
+    {
+        if ($pemasukan->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $pemasukan->delete();
+
+        return redirect()->route('journal')->with('success', 'Data pemasukan berhasil dihapus');
+    }
 }

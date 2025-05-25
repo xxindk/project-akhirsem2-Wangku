@@ -65,7 +65,7 @@
                     <form action="{{ url('/transaksi-utang-piutangs/' . $item->id) }}" method="POST" style="display:inline-block">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus?')">
-                            <i class="bi bi-trash-fill"></i> Hapus </button>
+                            <i class="bi bi-trash"></i> Hapus </button>
                     </form>
                 </td>
             </tr>

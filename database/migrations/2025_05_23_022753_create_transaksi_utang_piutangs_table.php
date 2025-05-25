@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('transaksi_utang_piutangs', function (Blueprint $table) {
             $table->id();
+              $table->unsignedBigInteger('user_id');
             $table->enum('jenis', ['Utang', 'Piutang']);
             $table->bigInteger('nominal');
             $table->bigInteger('bunga')->nullable();
             $table->date('jatuh_tempo');
             $table->enum('status', ['Belum Lunas', 'Lunas']);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

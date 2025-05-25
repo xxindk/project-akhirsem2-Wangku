@@ -4,63 +4,66 @@ namespace App\Http\Controllers;
 
 use App\Models\Reminder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderController extends Controller
 {
     public function index()
     {
-        $reminders = Reminder::all();  // Ambil semua
+        $reminders = Reminder::where('user_id', Auth::id())->get();
         return view('reminders', compact('reminders'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'jenis_tagihan' => 'required|string|max:255',
             'nominal' => 'required',
             'jatuh_tempo' => 'required|date',
             'status' => 'required|in:Lunas,Belum Lunas',
         ]);
 
-        Reminder::create([
-            'jenis_tagihan' => $request->jenis_tagihan,
-            'nominal' => preg_replace('/[^0-9]/', '', $request->nominal),
-            'jatuh_tempo' => $request->jatuh_tempo,
-            'status' => $request->status,
-        ]);
+        $validated['user_id'] = Auth::id();
+        $validated['nominal'] = preg_replace('/[^0-9]/', '', $validated['nominal']);
 
-        return redirect()->back();
+        Reminder::create($validated);
+
+        return redirect()->back()->with('success', 'Reminder berhasil ditambahkan');
     }
 
     public function update(Request $request, Reminder $reminder)
     {
-        $request->validate([
+        if ($reminder->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
             'jenis_tagihan' => 'required|string|max:255',
             'nominal' => 'required',
             'jatuh_tempo' => 'required|date',
             'status' => 'required|in:Lunas,Belum Lunas',
         ]);
 
-        $reminder->update([
-            'jenis_tagihan' => $request->jenis_tagihan,
-            'nominal' => preg_replace('/[^0-9]/', '', $request->nominal),
-            'jatuh_tempo' => $request->jatuh_tempo,
-            'status' => $request->status,
-        ]);
+        $validated['nominal'] = preg_replace('/[^0-9]/', '', $validated['nominal']);
 
-        return redirect()->back();
+        $reminder->update($validated);
+
+        return redirect()->back()->with('success', 'Reminder berhasil diperbarui');
     }
 
     public function destroy(Reminder $reminder)
     {
+        if ($reminder->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $reminder->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Reminder berhasil dihapus');
     }
 
     public function edit($id)
     {
-    $reminder = Reminder::findOrFail($id);
-    return response()->json($reminder);
+        $reminder = Reminder::where('user_id', Auth::id())->findOrFail($id);
+        return response()->json($reminder);
     }
-
 }

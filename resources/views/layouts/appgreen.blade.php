@@ -54,7 +54,7 @@
             </a>
 
             {{-- Hello User --}}
-            <span class="fw-semibold me-3 text-white">Hello, User!</span>
+            <span class="fw-semibold me-3 text-white">Hello, {{ Auth::user()->name }}!</span>
 
             {{-- Akun Dropdown --}}
             <div class="dropdown">
@@ -72,12 +72,12 @@
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center text-danger" 
-                        class="text-danger" href="{{ route('logout') }}">Logout</a>
+                  <li>
+    <a class="dropdown-item d-flex align-items-center text-danger" href="{{ route('welcome') }}">
+        <i class="bi bi-box-arrow-right me-2"></i> Logout
+    </a>
+</li>
 
-                        </a>
-                    </li>
                 </ul>
             </div>
 
@@ -93,7 +93,7 @@
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('reminders.index') }}">Pengingat Keuangan</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('utang-piutang.index') }}">Catatan Utang-Piutang</a></li>
                     <li><a class="dropdown-item py-2 fw-semibold" href="{{ route ('keuangan.bulanan') }}">Jurnal Keuangan Bulanan</a></li>
-                    <li><a class="dropdown-item py-2 fw-semibold" href="#">Target Wangku</a></li>
+                    <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('target.index') }}">Target Wangku</a></li>
                 </ul>
             </div>
         </nav>
