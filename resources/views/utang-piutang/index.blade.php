@@ -75,93 +75,76 @@
 </div>
 
 
-<!-- Modal --><!-- MODAL OVERLAY -->
-<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.5); z-index:1000; justify-content: center; align-items: center;">
-  
-  <!-- MODAL CONTENT -->
-  <div id="modalTambah"
-       style="background:white; padding:25px 35px; width:480px; border-radius:15px; font-family:sans-serif; position:relative; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
-
-    <!-- Tombol Close -->
-    <button onclick="closeModalTambah()"
-            style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:22px; font-weight:bold; cursor:pointer;">×</button>
-
-    <!-- Judul Modal -->
-    <h4 style="font-weight:600; font-size:20px; margin-bottom:25px;">Tambah Catatan Piutang</h4>
-
-    <!-- FORM TAMBAH -->
-    <form method="POST" action="{{ route('reminders.store') }}">
+<div id="modalTambah" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+  <div style="background:white; margin:100px auto; padding:20px 30px; width:450px; border-radius:10px; font-family:sans-serif; position:relative;">
+    <h3 style="font-weight:600; font-size:18px; margin-bottom:20px;">Tambah Catatan Piutang</h3>
+    <form method="POST" action="{{ route('store') }}">
       @csrf
 
-      <!-- Jenis Tagihan -->
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 130px; font-weight: 500;">Jenis Tagihan:</label>
-        <input type="text" name="jenis" required 
-          style="flex: 1; padding: 5px 8px; border: none; border-bottom: 1px solid #ccc; background: transparent; outline: none;">
+      <!-- Jenis  -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Jenis:</label>
+        <select name="jenis_tagihan"
+          style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
+       <option value="">-- Pilih --</option>
+       <option value="Utang">Utang</option>
+       <option value="Piutang">Piutang</option>
+        </select>
       </div>
 
       <!-- Nominal -->
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 130px; font-weight: 500;">Nominal:</label>
-        <input type="number" name="nominal" required 
-          style="flex: 1; padding: 5px 8px; border: none; border-bottom: 1px solid #ccc; background: transparent; outline: none;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Nominal:</label>
+        <input type="number" name="nominal"
+               style="flex: 1; border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;" required>
       </div>
 
-      <!-- Bunga -->
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 130px; font-weight: 500;">Bunga:</label>
-        <input type="number" name="bunga" step="0.01" required 
-          style="flex: 1; padding: 5px 8px; border: none; border-bottom: 1px solid #ccc; background: transparent; outline: none;">
+       <!-- Bunga -->
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Bunga:</label>
+        <input type="number" name="bunga"
+               style="flex: 1; border: none !important; border-bottom: 1px solid #ccc; background: transparent; font-weight: 500; outline: none;">
       </div>
 
       <!-- Jatuh Tempo -->
-      <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <label style="width: 130px; font-weight: 500;">Jatuh Tempo:</label>
-        <input type="date" name="jatuh_tempo" required 
-          style="flex: 1; padding: 5px 8px; border: none; border-bottom: 1px solid #ccc; background: transparent; outline: none;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Jatuh Tempo:</label>
+        <input type="date" name="jatuh_tempo"
+               style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
       </div>
 
       <!-- Status -->
-      <div style="display: flex; align-items: center; margin-bottom: 25px;">
-        <label style="width: 130px; font-weight: 500;">Status:</label>
-        <select name="status" required 
-          style="flex: 1; padding: 5px 8px; border: none; border-bottom: 1px solid #ccc; background: transparent; outline: none;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <label style="width: 120px;">Status:</label>
+        <select name="status"
+                style="flex: 1; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0; font-weight: 600; padding: 5px;" required>
+          <option value="">-- Pilih --</option>
           <option value="Belum Lunas">Belum Lunas</option>
           <option value="Lunas">Lunas</option>
         </select>
       </div>
 
       <!-- Tombol Simpan -->
-      <div style="text-align: right;">
-        <button type="submit" 
-          style="background-color: #F4A261; color: white; font-weight: bold; padding: 8px 20px; border: none; border-radius: 6px; cursor: pointer;">
-          Simpan
-        </button>
+      <div style="text-align:right; margin-top:15px;">
+        <button type="submit"
+                style="background:#F4A261; color:white; border:none; padding:7px 20px; border-radius:10px; font-weight:600; cursor:pointer;">Simpan</button>
       </div>
     </form>
+
+    <!-- Tombol close -->
+    <button onclick="closeModalTambah()" style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:20px; font-weight:bold; cursor:pointer;">×</button>
   </div>
 </div>
 
-<!-- SCRIPT MODAL -->
 <script>
-  function openModalTambah() {
-    document.getElementById('overlay').style.display = 'flex';
-  }
+function openModalTambah() {
+    document.getElementById('modalTambah').style.display = 'block';
+}
 
-  function closeModalTambah() {
-    document.getElementById('overlay').style.display = 'none';
-  }
-
-  // Tutup modal kalau klik di luar konten
-  window.onclick = function(event) {
-    const overlay = document.getElementById('overlay');
-    const modal = document.getElementById('modalTambah');
-    if (event.target === overlay) {
-      overlay.style.display = "none";
-    }
-  }
+function closeModalTambah() {
+    document.getElementById('modalTambah').style.display = 'none';
+}
 </script>
-
 
 
 {{-- Modal Edit --}}
