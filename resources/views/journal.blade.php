@@ -61,7 +61,7 @@
                             <td class="border px-4 py-2">{{ $pengeluaran->nama }}</td>
                             <td class="border px-4 py-2">{{ $pengeluaran->kategori->nama ?? '-' }}</td>
                             <td class="border px-4 py-2 text-right">{{ number_format($pengeluaran->nominal, 0, ',', '.') }}</td>
-                            <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d-m-Y') }}</td>
+                            <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pengeluaran->foto)
 <img src="{{ asset('storage/' . $pengeluaran->foto) }}" width="80">
@@ -83,7 +83,7 @@
                                 <form action="{{ url('/pengeluarans/' . $pengeluaran->id) }}" method="POST" style="display:inline-block" onsubmit="return confirm('Yakin ingin hapus data ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
@@ -141,7 +141,7 @@
                             <td class="border px-4 py-2">{{ $pemasukan->nama }}</td>
                             <td class="border px-4 py-2">{{ $pemasukan->kategori->nama ?? '-' }}</td>
                             <td class="border px-4 py-2 text-right">{{ number_format($pemasukan->nominal, 0, ',', '.') }}</td>
-                            <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d-m-Y') }}</td>
+                            <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pemasukan->foto)
 <img src="{{ asset('storage/' . $pemasukan->foto) }}" width="80">
@@ -161,7 +161,7 @@
                                <form action="{{ url('/pemasukans/' . $pemasukan->id) }}" method="POST" style="display:inline-block"  onsubmit="return confirm('Yakin ingin hapus data ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
