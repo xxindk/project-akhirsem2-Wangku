@@ -17,6 +17,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
+
 // --------------------
 // HALAMAN AWAL (WELCOME, TANPA LOGIN)
 // --------------------
@@ -28,7 +29,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signupProcess'])->name('signup.process');
 
-Route::get('/signin', [AuthController::class, 'showSignin'])->name('login'); // "login" digunakan oleh middleware auth
+Route::get('/signin', [AuthController::class, 'showSignin']);
+Route::get('/signin', [AuthController::class, 'showSignin'])->name('signin');
+Route::get('/signin', [AuthController::class, 'showSignin'])->name('login');
+
 Route::post('/signin', [AuthController::class, 'signinProcess'])->name('signin.process');
 
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');

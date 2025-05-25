@@ -161,12 +161,12 @@
 </p>
 
 
-    <a href="{{ route('signin') }}" 
-       class="btn" 
-       style="background-color: #339af0; color: white; font-weight: bold; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 16px;">
-       Sign In
-       
-    </a>
+<a href="{{ route('login') }}"
+   class="btn"
+   style="background-color: #339af0; color: white; font-weight: bold; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 16px;">
+   Sign In
+</a>
+
   </div>
 
   <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 40%; transform: translateX(-50%); width: 720px;">
