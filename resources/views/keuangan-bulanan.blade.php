@@ -54,6 +54,7 @@
   <div class="container py-4">
 <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Jurnal Keuangan Bulanan</h2>       
 
+    <!-- Filter Tahun & Bulan -->
     <div class="filter">
       <form method="GET" action="{{ route('keuangan.bulanan') }}" id="filterForm" style="display: flex; gap: 1rem;">
         <select name="tahun" onchange="document.getElementById('filterForm').submit();">
@@ -63,13 +64,16 @@
         </select>
 
         <select name="bulan" onchange="document.getElementById('filterForm').submit();">
-          @foreach ($bulanList as $bln)
-            <option value="{{ $bln }}" {{ $bln == $bulan ? 'selected' : '' }}>{{ $bln }}</option>
+          @foreach (range(1, 12) as $i)
+            <option value="{{ $i }}" {{ $i == $bulan ? 'selected' : '' }}>
+              {{ DateTime::createFromFormat('!m', $i)->format('F') }}
+            </option>
           @endforeach
         </select>
       </form>
     </div>
 
+    <!-- Tabel Ringkasan -->
     <table>
       <thead>
         <tr>
@@ -89,16 +93,19 @@
       </tbody>
     </table>
 
-<h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Grafik Keuangan Bulanan</h2>       
+    <!-- Grafik -->
+    <h2>Grafik Keuangan Bulanan</h2>
 
     <div class="chart-container">
       <canvas id="chart"></canvas>
     </div>
   </div>
 
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const ctx = document.getElementById('chart').getContext('2d');
+
     new Chart(ctx, {
       type: 'bar',
       data: {
@@ -110,6 +117,7 @@
         }]
       },
       options: {
+        responsive: true,
         scales: {
           y: {
             beginAtZero: true,
@@ -121,6 +129,10 @@
         plugins: {
           legend: {
             display: false
+          },
+          title: {
+            display: true,
+            text: 'Periode: {{ DateTime::createFromFormat("!m", $bulan)->format("F") }} {{ $tahun }}'
           }
         }
       }

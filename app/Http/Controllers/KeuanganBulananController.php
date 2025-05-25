@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pemasukan;
+use App\Models\Pengeluaran;
 
 class KeuanganBulananController extends Controller
 {
@@ -11,25 +13,37 @@ class KeuanganBulananController extends Controller
         // List tahun & bulan untuk dropdown
         $tahunList = range(2022, 2025);
         $bulanList = [
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret',
+            4 => 'April', 5 => 'Mei', 6 => 'Juni',
+            7 => 'Juli', 8 => 'Agustus', 9 => 'September',
+            10 => 'Oktober', 11 => 'November', 12 => 'Desember'
         ];
 
         // Ambil input user (default ke Mei 2025 jika tidak ada)
-        $tahun = $request->input('tahun', 2025);
-        $bulan = $request->input('bulan', 'Mei');
+        $tahun = (int) $request->input('tahun', 2025);
+        $bulan = (int) $request->input('bulan', 5); // Bulan sebagai angka
 
-        // Data dummy berdasarkan bulan dan tahun (bisa disesuaikan)
-        $pengeluaran = 7300000;
-        $pemasukan = 16900000;
+        // Validasi bulan
+        if (!array_key_exists($bulan, $bulanList)) {
+            abort(400, 'Bulan tidak valid.');
+        }
+
+        // Ambil total dari database sesuai bulan & tahun
+        $totalPemasukan = Pemasukan::whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->sum('nominal');
+
+        $totalPengeluaran = Pengeluaran::whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->sum('nominal');
 
         return view('keuangan-bulanan', [
             'tahunList' => $tahunList,
             'bulanList' => $bulanList,
             'tahun' => $tahun,
             'bulan' => $bulan,
-            'pengeluaran' => $pengeluaran,
-            'pemasukan' => $pemasukan,
+            'pemasukan' => $totalPemasukan,
+            'pengeluaran' => $totalPengeluaran,
         ]);
     }
 }

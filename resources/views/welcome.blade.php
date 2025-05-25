@@ -56,7 +56,6 @@
 
         .left {
             max-width: 500px;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
         }
 
         h1 {
