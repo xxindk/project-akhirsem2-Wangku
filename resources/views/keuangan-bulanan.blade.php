@@ -94,7 +94,7 @@
     </table>
 
     <!-- Grafik -->
-    <h2>Grafik Keuangan Bulanan</h2>
+    <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Catatan Pengeluaran</h2>       
 
     <div class="chart-container">
       <canvas id="chart"></canvas>
