@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register - WangKu</title>
   <style>
@@ -13,7 +14,7 @@
 
     body, html {
       height: 100%;
-      font-family: 'Segoe UI', sans-serif;
+       font-family: 'Poppins', sans-serif;
       overflow: hidden;
     }
 
@@ -143,14 +144,16 @@
         border-radius: 0;
       }
     }
+
+    
   </style>
 </head>
 <body>
   <div class="container">
     <!-- KIRI -->
    <div class="left">
-  <div class="w-100 d-flex justify-content-start align-items-start">
-    <img src="/images/darklogoandfont.png" alt="Logo WangKu" class="logo" style="position: absolute; top: 30px; left: 30px; height: 35px;">
+  <div class="w-100 d-flex justify-content-start align-items-start ">
+    <img src="/images/darklogoandfont.png" alt="Logo WangKu" class="logo" style="position: absolute; top: 50px; left: 30px; height: 35px;">
   </div>
 
   <div style="margin-top: -80px; max-width: 420px;">
@@ -169,7 +172,7 @@
 
   </div>
 
-  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 40%; transform: translateX(-50%); width: 720px;">
+  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -300px; left: 40%; transform: translateX(-50%); width: 720px; ">
 </div>
 
 

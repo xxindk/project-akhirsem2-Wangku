@@ -46,7 +46,7 @@
     <tr>
         <th style="background-color: #F4A261 !important; color: white !important;">Nama</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Kategori</th>
-        <th style="background-color: #F4A261 !important; color: white !important;">Jumlah (Rp)</th>
+        <th style="background-color: #F4A261 !important; color: white !important;">Nominal</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Tanggal</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Foto</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Aksi</th>
@@ -60,7 +60,7 @@
                         <tr>
                             <td class="border px-4 py-2">{{ $pengeluaran->nama }}</td>
                             <td class="border px-4 py-2">{{ $pengeluaran->kategori->nama ?? '-' }}</td>
-                            <td class="border px-4 py-2 text-right">{{ number_format($pengeluaran->nominal, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2 text-right">Rp {{ number_format($totalPemasukan, 0, ',', '.') }},-</td>
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pengeluaran->foto)
@@ -97,7 +97,7 @@
         </div>
 
       
-        <div class="row g-4 mt-3">
+        <div class="row g-4 ">
     <!-- Chart -->
     <div class="col-md-6">
         <div class="p-4 rounded text-black w-100" style="background:white;">
@@ -121,7 +121,7 @@
 </div>
 
 
-    <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Catatan Pemasukan</h2>       
+    <h2 class="h3 fw-semibold text-white mb-4 opacity-100" style="margin-top: 70px;">Catatan Pemasukan</h2>       
         <div class="rounded overflow-hidden">
            {{-- Tabel Pemasukan --}}
  <table class="table table-bordered text-center ">
@@ -129,7 +129,7 @@
     <tr>
         <th style="background-color: #F4A261 !important; color: white !important;">Nama</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Kategori</th>
-        <th style="background-color: #F4A261 !important; color: white !important;">Jumlah (Rp)</th>
+        <th style="background-color: #F4A261 !important; color: white !important;">Nominal</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Tanggal</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Foto</th>
         <th style="background-color: #F4A261 !important; color: white !important;">Aksi</th>
@@ -140,7 +140,7 @@
                         <tr>
                             <td class="border px-4 py-2">{{ $pemasukan->nama }}</td>
                             <td class="border px-4 py-2">{{ $pemasukan->kategori->nama ?? '-' }}</td>
-                            <td class="border px-4 py-2 text-right">{{ number_format($pemasukan->nominal, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2 text-right">Rp {{ number_format($totalPemasukan, 0, ',', '.') }},-</td>
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pemasukan->foto)
@@ -174,7 +174,7 @@
 
 
 
-<div class="row g-4 mt-3">
+<div class="row g-4">
     <!-- Chart -->
     <div class="col-md-6">
         <div class="p-4 rounded text-black w-100" style="background:white;">

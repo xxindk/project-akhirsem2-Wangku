@@ -1,7 +1,9 @@
 @extends('layouts.appgreen')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: -10px;">
+<div class="container mx-auto p-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px;">
     <h2 class="fw-bold text-white mb-0">Target Wangku</h2>
     <button class="btn" style="background-color: #F4A261; color: white;" type="button" onclick="openModalTambahTarget()">
         <i class="bi bi-plus-circle me-1"></i> Tambah 
@@ -21,8 +23,8 @@
                         <img src="{{ asset('storage/' . $target->gambar) }}" class="card-img-top" alt="Target Image">
                         <div class="card-body">
                             <h5 class="card-title">{{ $target->nama_target }}</h5>
-                            <p class="card-text">Target: Rp{{ number_format($target->jumlah_target, 0, ',', '.') }}</p>
-                            <p class="card-text">Terkumpul: Rp{{ number_format($target->jumlah_terkumpul, 0, ',', '.') }}</p>
+                            <p class="card-text">Target: Rp {{ number_format($target->jumlah_target, 0, ',', '.') }},-</p>
+                            <p class="card-text">Terkumpul: Rp {{ number_format($target->jumlah_terkumpul, 0, ',', '.') }},-</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
                             
@@ -129,12 +131,13 @@ function previewGambarEdit() {
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm d-flex align-items-center gap-1">
-                                    <i class="bi bi-trash-fill"></i> Hapus
+                                    <i class="bi bi-trash"></i> Hapus
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
+            
             @endforeach
         </div>
     @endif
@@ -144,7 +147,7 @@ function previewGambarEdit() {
         <img src="{{ asset('images/motivasi-nabung.png') }}" alt="Motivasi Nabung" class="img-fluid" style="max-width: 100%;">
     </div>
 </div>
-
+</div>
 
 
 <!-- Modal Tambah Target Tabungan -->
