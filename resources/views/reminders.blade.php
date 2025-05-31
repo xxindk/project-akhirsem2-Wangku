@@ -28,7 +28,7 @@
 
     {{-- Flash Message --}}
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-info">{{ session('success') }}</div>
     @endif
 
     {{-- Tabel --}}
