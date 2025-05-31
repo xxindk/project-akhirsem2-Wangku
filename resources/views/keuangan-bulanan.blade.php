@@ -51,8 +51,8 @@
     }
   </style>
 
-  <div class="container py-4">
-<h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Jurnal Keuangan Bulanan</h2>       
+  <div class="container mx-auto p-4">
+<h2 class="h3 fw-semibold text-white mb-4 opacity-100" style="margin-top: 50px;">Jurnal Keuangan Bulanan</h2>       
 
     <!-- Filter Tahun & Bulan -->
     <div class="filter">
@@ -94,7 +94,7 @@
     </table>
 
     <!-- Grafik -->
-    <h2>Grafik Keuangan Bulanan</h2>
+    <h2 class="h3 fw-semibold text-white mb-4 mt-4 opacity-100">Catatan Pengeluaran</h2>       
 
     <div class="chart-container">
       <canvas id="chart"></canvas>

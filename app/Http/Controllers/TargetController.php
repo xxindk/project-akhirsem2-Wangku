@@ -21,26 +21,28 @@ class TargetController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'target' => 'required|numeric',
-            'jumlah_terkumpul' => 'required|numeric|min:0',
-            'gambar' => 'nullable|image|max:2048',
-        ]);
+    {$validated = $request->validate([
+    'nama_target' => 'required|string|max:255',
+    'jumlah_target' => 'required|numeric',
+    'jumlah_terkumpul' => 'required|numeric|min:0',
+    'catatan' => 'nullable|string',
+    'gambar' => 'nullable|image|max:2048',
+]);
 
-        $gambarPath = null;
-        if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('targets', 'public');
-        }
+$gambarPath = null;
+if ($request->hasFile('gambar')) {
+    $gambarPath = $request->file('gambar')->store('targets', 'public');
+}
 
-        TargetWangku::create([
-            'user_id' => Auth::id(),
-            'nama_target' => $validated['nama'],
-            'jumlah_target' => $validated['target'],
-            'jumlah_terkumpul' => $validated['jumlah_terkumpul'],
-            'gambar' => $gambarPath,
-        ]);
+TargetWangku::create([
+    'user_id' => Auth::id(),
+    'nama_target' => $validated['nama_target'],
+    'jumlah_target' => $validated['jumlah_target'],
+    'jumlah_terkumpul' => $validated['jumlah_terkumpul'],
+    'catatan' => $validated['catatan'] ?? null,
+    'gambar' => $gambarPath,
+]);
+
 
         return redirect()->route('target.index')->with('success', 'Target berhasil ditambahkan!');
     }

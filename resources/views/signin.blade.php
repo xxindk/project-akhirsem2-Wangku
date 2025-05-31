@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign In - WangKu</title>
   <style>
@@ -14,7 +15,7 @@
     html, body {
     height: 100%;
     overflow: hidden; /* 👉 Cegah scroll */
-    font-family: 'Segoe UI', sans-serif;
+     font-family: 'Poppins', sans-serif;
   }
 
     .container {
@@ -159,6 +160,7 @@ form button {
         margin-top: 1rem;
       }
     }
+    
   </style>
 </head>
 <body>
@@ -204,7 +206,7 @@ form button {
   </div>
 </a>
   </div>
-  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 70%; transform: translateX(-50%); width: 720px; max-width: none;">
+  <img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -300px; left: 80%; transform: translateX(-50%); width: 720px; max-width: none;">
 
 </div>
 
