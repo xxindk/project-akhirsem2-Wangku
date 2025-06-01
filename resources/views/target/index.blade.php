@@ -27,21 +27,6 @@
         <img src="{{ asset('storage/' . $target->gambar) }}" 
              alt="Target Image" 
              style="width: 120px; height: 120px; object-fit: cover; border-radius: 10px; margin-right: 15px;">
-=======
-                        <img src="{{ asset('storage/' . $target->gambar) }}" class="card-img-top" alt="Target Image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $target->nama_target }}</h5>
-                            <p class="card-text">Target: Rp {{ number_format($target->jumlah_target, 0, ',', '.') }},-</p>
-                            <p class="card-text">Terkumpul: Rp {{ number_format($target->jumlah_terkumpul, 0, ',', '.') }},-</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            
-{{-- Modal Edit Target --}}
-<button class="btn btn-warning btn-sm" 
-    onclick="editTarget({{ $target->id }}, '{{ $target->nama_target }}', {{ $target->jumlah_target }}, {{ $target->jumlah_terkumpul }})">
-    <i class="bi bi-pencil-fill"></i> Edit
-</button>
->>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
 
         {{-- Info target di kanan --}}
         <div class="flex-grow-1">
@@ -172,19 +157,6 @@ function previewGambarEdit() {
         </button>
     </form>
 </div>
-
-
-=======
-                            {{-- Tombol Hapus --}}
-                            <form action="{{ route('target.destroy', $target->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm d-flex align-items-center gap-1">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </div>
->>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
                     </div>
                 </div>
             
@@ -197,13 +169,6 @@ function previewGambarEdit() {
         <img src="{{ asset('images/motivasi-nabung.png') }}" alt="Motivasi Nabung" 
              class="img-fluid" style="max-width: 1000px;">
     </div>
-<<<<<<< HEAD
-
-=======
-</div>
-</div>
->>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
-
 
 <!-- Modal Tambah Target Tabungan -->
 {{-- Modal Tambah Target Tabungan --}}
