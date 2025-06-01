@@ -29,12 +29,17 @@
             box-shadow: none !important;
             outline: none !important;
         }
+
+        body {
+    padding-top: 70px; 
+}
+
     </style>
 </head>
 <body class="p-0 m-0 bg-white">
 
     <div class="container-fluid p-0">
-        <nav class="d-flex align-items-center px-3 py-2 sticky-top" style="background: transparent;">
+<nav class="d-flex align-items-center px-3 py-2 bg-white  fixed-top" style="z-index: 1030;">
             {{-- Logo --}}
             <a href="#" class="me-auto">
                 <img src="{{ asset('images/darklogoandfont.png') }}" alt="logo" style="max-height: 40px;">
@@ -93,6 +98,20 @@
     <footer class="bg-white">
         <img src="{{ asset('images/hiasanbawahhome.png') }}" alt="Hiasan Footer"
              class="w-100 mt-5" style="max-height: 150px; object-fit: cover;">
+              <footer class="text-white py-4" style="background-color: #80A4A7">
+        <div class="container text-center">
+             <h5 class="fw-bold mb-3" style="font-family: 'Poppins', sans-serif;">WANGKU</h5>
+            <div class="mb-3">
+                <a href="https://instagram.com" target="_blank" class="text-white me-3"><i class="bi bi-instagram fs-5"></i></a>
+                <a href="https://youtube.com" target="_blank" class="text-white me-3"><i class="bi bi-youtube fs-5"></i></a>
+                <a href="mailto:contact@wangku.com" class="text-white me-3"><i class="bi bi-envelope-fill fs-5"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
+            </div>
+            <div class="text-muted small">
+                &copy; {{ date('Y') }} Wangku. Kelompok WangKu.
+            </div>
+        </div>
+    </footer>
     </footer>
 
     {{-- Bootstrap Scripts --}}

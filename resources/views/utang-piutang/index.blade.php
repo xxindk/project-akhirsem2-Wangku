@@ -17,10 +17,10 @@
     }
 </style>
 
-<div class="container">
+<div class="container mx-auto p-4">
     
     {{-- Header & Tombol Tambah --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px;">
         <h2 class="fw-bold">Transaksi Utang-Piutang</h2>
         <button class="btn" style="background-color: #F4A261; color: white;" onclick="openModalTambah()">
             <i class="bi bi-plus-circle me-1"></i> Tambah
@@ -29,7 +29,7 @@
 
     {{-- Flash Message --}}
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-info">{{ session('success') }}</div>
     @endif
 
     {{-- Tabel Data --}}
@@ -48,7 +48,7 @@
             @foreach ($data as $item)
             <tr>
                 <td>{{ $item->jenis }}</td>
-                <td>Rp{{ number_format($item->nominal, 0, ',', '.') }},-</td>
+                <td>Rp {{ number_format($item->nominal, 0, ',', '.') }},-</td>
                 <td>
                     @if ($item->bunga)
                     Rp {{ number_format($item->bunga, 0, ',', '.') }},-
@@ -65,7 +65,7 @@
                     <form action="{{ url('/transaksi-utang-piutangs/' . $item->id) }}" method="POST" style="display:inline-block">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus?')">
-                            <i class="bi bi-trash-fill"></i> Hapus </button>
+                            <i class="bi bi-trash"></i> Hapus </button>
                     </form>
                 </td>
             </tr>

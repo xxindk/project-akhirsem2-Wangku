@@ -17,9 +17,9 @@
     }
 </style>
 
-<div class="container">
+<div class="container mx-auto p-4">
       {{-- Header & Tambah --}}
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px;">
     <h2 class="fw-bold">Pengingat Keuangan</h2>
      <button class="btn" style="background-color: #F4A261; color: white;" onclick="openModalTambah()">
       <i class="bi bi-plus-circle me-1"></i> Tambah
@@ -28,7 +28,7 @@
 
     {{-- Flash Message --}}
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-info">{{ session('success') }}</div>
     @endif
 
     {{-- Tabel --}}
@@ -46,7 +46,7 @@
             @foreach ($reminders as $item)
             <tr>
                 <td>{{ $item->jenis_tagihan }}</td>
-                <td>Rp{{ number_format($item->nominal, 0, ',', '.') }},-</td>
+                <td>Rp {{ number_format($item->nominal, 0, ',', '.') }},-</td>
                 <td>{{ \Carbon\Carbon::parse($item->jatuh_tempo)->format('d/m/Y') }}</td>
                 <td>{{ $item->status }}</td>
                 <td>

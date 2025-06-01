@@ -1,7 +1,9 @@
 @extends('layouts.appgreen')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: -10px;">
+<div class="container mx-auto p-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 50px;">
     <h2 class="fw-bold text-white mb-0">Target Wangku</h2>
     <button class="btn" style="background-color: #F4A261; color: white;" type="button" onclick="openModalTambahTarget()">
         <i class="bi bi-plus-circle me-1"></i> Tambah 
@@ -18,12 +20,28 @@
             @foreach($targets as $target)
                 <div class="col">
                     <div class="card h-100 shadow-sm">
+<<<<<<< HEAD
                        <div class="card h-100 shadow-sm p-3">
     <div class="d-flex align-items-center">
         {{-- Gambar di kiri --}}
         <img src="{{ asset('storage/' . $target->gambar) }}" 
              alt="Target Image" 
              style="width: 120px; height: 120px; object-fit: cover; border-radius: 10px; margin-right: 15px;">
+=======
+                        <img src="{{ asset('storage/' . $target->gambar) }}" class="card-img-top" alt="Target Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $target->nama_target }}</h5>
+                            <p class="card-text">Target: Rp {{ number_format($target->jumlah_target, 0, ',', '.') }},-</p>
+                            <p class="card-text">Terkumpul: Rp {{ number_format($target->jumlah_terkumpul, 0, ',', '.') }},-</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            
+{{-- Modal Edit Target --}}
+<button class="btn btn-warning btn-sm" 
+    onclick="editTarget({{ $target->id }}, '{{ $target->nama_target }}', {{ $target->jumlah_target }}, {{ $target->jumlah_terkumpul }})">
+    <i class="bi bi-pencil-fill"></i> Edit
+</button>
+>>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
 
         {{-- Info target di kanan --}}
         <div class="flex-grow-1">
@@ -139,6 +157,7 @@ function previewGambarEdit() {
 
 
 
+<<<<<<< HEAD
 {{-- Baris tombol Edit & Hapus di sebelah kanan --}}
 <div class="d-flex justify-content-end gap-3 mt-3">
     <button class="btn text-primary p-0 border-0 fw-regular" onclick="editTarget({{ $target->id }})">
@@ -155,8 +174,20 @@ function previewGambarEdit() {
 </div>
 
 
+=======
+                            {{-- Tombol Hapus --}}
+                            <form action="{{ route('target.destroy', $target->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm d-flex align-items-center gap-1">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </button>
+                            </form>
+                        </div>
+>>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
                     </div>
                 </div>
+            
             @endforeach
         </div>
     @endif
@@ -166,7 +197,12 @@ function previewGambarEdit() {
         <img src="{{ asset('images/motivasi-nabung.png') }}" alt="Motivasi Nabung" 
              class="img-fluid" style="max-width: 1000px;">
     </div>
+<<<<<<< HEAD
 
+=======
+</div>
+</div>
+>>>>>>> 0897911613d8a94a460143a4b8fc74e7452f3e03
 
 
 <!-- Modal Tambah Target Tabungan -->
