@@ -13,38 +13,36 @@
 
 
 
-    @if($targets->isEmpty())
-        <div class="alert alert-info">Belum ada target tabungan. Yuk tambahkan!</div>
-    @else
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @foreach($targets as $target)
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                       <div class="card h-100 shadow-sm p-3">
-    <div class="d-flex align-items-center">
-        {{-- Gambar di kiri --}}
-        <img src="{{ asset('storage/' . $target->gambar) }}" 
-             alt="Target Image" 
-             style="width: 120px; height: 120px; object-fit: cover; border-radius: 10px; margin-right: 15px;">
-
-        {{-- Info target di kanan --}}
-        <div class="flex-grow-1">
-            <h5 class="mb-1">{{ $target->nama_target }}</h5>
-            <p class="mb-1">Target: Rp{{ number_format($target->jumlah_target, 0, ',', '.') }}</p>
-            <p class="mb-2">Terkumpul: Rp{{ number_format($target->jumlah_terkumpul, 0, ',', '.') }}</p>
-
-            {{-- Progress Bar --}}
-            @php
-                $progres = min(100, ($target->jumlah_terkumpul / max($target->jumlah_target, 1)) * 100);
-            @endphp
-            <div class="progress" style="height: 10px;">
-            <div class="progress-bar bg-primary" role="progressbar" 
-                    style="width: {{ $progres }}%;" 
-                    aria-valuenow="{{ $progres }}" aria-valuemin="0" aria-valuemax="100">
+@if($targets->isEmpty())
+    <div class="alert alert-info">Belum ada target tabungan. Yuk tambahkan!</div>
+@else
+    <div class="d-flex flex-wrap gap-3">
+        @foreach($targets as $target)
+            <div class="card shadow-sm p-3" style="width: 23rem;">
+                <div class="d-flex align-items-start gap-3">
+                    {{-- Gambar di kiri --}}
+                    <img src="{{ asset('storage/' . $target->gambar) }}" 
+                         alt="Target Image" 
+                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
+ {{-- Info di kanan --}}
+                    <div class="flex-grow-1">
+                        <h5 class="mb-2">{{ $target->nama_target }}</h5>
+                        <p class="mb-1">Target: Rp{{ number_format($target->jumlah_target, 0, ',', '.') }}</p>
+                        <div class="mb-2">
+                            Terkumpul: Rp{{ number_format($target->jumlah_terkumpul, 0, ',', '.') }}
+                        </div>
+                        {{-- Progress Bar --}}
+                        @php
+                            $progres = min(100, ($target->jumlah_terkumpul / max($target->jumlah_target, 1)) * 100);
+                        @endphp
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar" 
+                                 style="width: {{ $progres }}%;" 
+                                 aria-valuenow="{{ $progres }}" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
 
                             
@@ -135,26 +133,24 @@ function previewGambarEdit() {
     }
 }
 </script>
-{{-- Baris tombol Edit & Hapus di sebelah kanan --}}
+{{-- Tombol edit & hapus --}}
 <div class="d-flex justify-content-end gap-3 mt-3">
-    <button class="btn text-primary p-0 border-0 fw-regular" onclick="editTarget({{ $target->id }})">
+    <button class="btn btn-link p-0 text-primary text-decoration-none" onclick="editTarget({{ $target->id }})">
         Edit
     </button>
 
     <form action="{{ route('target.destroy', $target->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn text-primary p-0 border-0 fw-regular">
+        <button type="submit" class="btn btn-link p-0 text-primary text-decoration-none">
             Hapus
         </button>
     </form>
 </div>
-                    </div>
-                </div>
-            
-            @endforeach
-        </div>
-    @endif
+            </div>
+        @endforeach
+    </div>
+@endif
 
     {{-- Banner Motivasi Nabung --}}
     <div class="w-100 mt-5 text-center">
