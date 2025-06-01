@@ -147,7 +147,7 @@
     .right img.maskot {
       width: 720px;
       position: absolute;
-      bottom: -250px;
+      bottom: -300px;
       left: 80%;
       transform: translateX(-50%);
       pointer-events: none;

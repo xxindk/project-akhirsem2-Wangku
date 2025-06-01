@@ -205,7 +205,7 @@
 
       </div>
 
-<img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -250px; left: 30%; transform: translateX(-30%); width: 720px;">
+<img src="/images/maskot1.png" alt="Maskot" class="maskot" style="position: absolute; bottom: -300px; left: 30%; transform: translateX(-30%); width: 720px;">
     </div>
 
     <div class="right">
