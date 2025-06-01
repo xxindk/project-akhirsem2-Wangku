@@ -20,7 +20,6 @@
             @foreach($targets as $target)
                 <div class="col">
                     <div class="card h-100 shadow-sm">
-<<<<<<< HEAD
                        <div class="card h-100 shadow-sm p-3">
     <div class="d-flex align-items-center">
         {{-- Gambar di kiri --}}
@@ -136,13 +135,6 @@ function previewGambarEdit() {
     }
 }
 </script>
-
-
-
-
-
-
-<<<<<<< HEAD
 {{-- Baris tombol Edit & Hapus di sebelah kanan --}}
 <div class="d-flex justify-content-end gap-3 mt-3">
     <button class="btn text-primary p-0 border-0 fw-regular" onclick="editTarget({{ $target->id }})">
