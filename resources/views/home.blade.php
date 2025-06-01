@@ -20,7 +20,7 @@
 <div class="mb-5 p-4  rounded shadow text-white text-start" style="background: linear-gradient(to bottom, #80A4A7, #486A6E);">
     <h2 class="h6 fw-semibold mb-1 opacity-100">Saldo</h2>
     <hr class="opacity-100 my-2 ms-0" style="width: auto; border-top: 2px solid #ffffff;">
-    <p class=" h6 mt-2 fw-semibold opacity-100">Rp {{ number_format($balance ?? 0, 0, ',', '.') }}</p>
+    <p class=" h6 mt-2 fw-semibold opacity-100">Rp {{ number_format($balance ?? 0, 0, ',', '.') }},-</p>
 </div>
 
 

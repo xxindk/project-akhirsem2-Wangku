@@ -60,7 +60,7 @@
                         <tr>
                             <td class="border px-4 py-2">{{ $pengeluaran->nama }}</td>
                             <td class="border px-4 py-2">{{ $pengeluaran->kategori->nama ?? '-' }}</td>
-                            <td class="border px-4 py-2 text-right">Rp {{ number_format($totalPemasukan, 0, ',', '.') }},-</td>
+                            <td class="border px-4 py-2 text-right">Rp {{ number_format($pengeluaran->nominal, 0, ',', '.') }},-</td>
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pengeluaran->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pengeluaran->foto)
@@ -140,7 +140,7 @@
                         <tr>
                             <td class="border px-4 py-2">{{ $pemasukan->nama }}</td>
                             <td class="border px-4 py-2">{{ $pemasukan->kategori->nama ?? '-' }}</td>
-                            <td class="border px-4 py-2 text-right">Rp {{ number_format($totalPemasukan, 0, ',', '.') }},-</td>
+                            <td class="border px-4 py-2 text-right">Rp {{ number_format($pemasukan->nominal, 0, ',', '.') }},-</td>
                             <td class="border px-4 py-2 text-center">{{ \Carbon\Carbon::parse($pemasukan->tanggal)->format('d/m/Y') }}</td>
                             <td class="border px-4 py-2 text-center">
                                 @if($pemasukan->foto)
